@@ -1,14 +1,30 @@
-import React from 'react';
-import logo from './logo.svg';
-import {CssBaseline} from "@material-ui/core";
+import React, { useEffect } from "react";
+import { CssBaseline } from "@material-ui/core";
 import Layout from "./ShoppingCart/Layout";
+import Client from "./Contentful";
 
 const App = () => {
+  const bananaID = process.env.REACT_APP_MYFIRSTFETCHBANANA;
+
+  useEffect(() => {
+    const getMyDefinedDataFromContentful = () => {
+      try {
+        // content_type defines the data what you are looking for
+        Client.getEntries({ content_type: bananaID }).then(res =>
+          console.log(res.items)
+        );
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    getMyDefinedDataFromContentful();
+  }, [bananaID]);
+
   return (
-    <CssBaseline >
-      <Layout/>
+    <CssBaseline>
+      <Layout />
     </CssBaseline>
   );
-}
+};
 
 export default App;
