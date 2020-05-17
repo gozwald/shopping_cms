@@ -4,13 +4,11 @@ import Layout from "./ShoppingCart/Layout";
 import Client from "./Contentful";
 
 const App = () => {
-  const bananaID = process.env.REACT_APP_MYFIRSTFETCHBANANA;
-
   useEffect(() => {
     const getMyDefinedDataFromContentful = () => {
       try {
         // content_type defines the data what you are looking for
-        Client.getEntries({ content_type: bananaID }).then(res =>
+        Client.getEntries({ content_type: "product" }).then(res =>
           console.log(res.items)
         );
       } catch (e) {
@@ -18,8 +16,7 @@ const App = () => {
       }
     };
     getMyDefinedDataFromContentful();
-  }, [bananaID]);
-
+  }, []);
   return (
     <CssBaseline>
       <Layout />
