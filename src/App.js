@@ -1,13 +1,19 @@
 import React from "react";
-import { CssBaseline } from "@material-ui/core";
-import { BrowserRouter as Router } from "react-router-dom";
+import { CssBaseline, Grid } from "@material-ui/core";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Main from "./StartingPage/Main";
+import ProductPage from "./ProductItem/ProductPage";
+import Layout from "./ShoppingCart/Layout";
 
 const App = () => {
   return (
     <Router>
       <CssBaseline>
-        <Main />
+        <Switch>
+          <Route exact path="/" component={Main} />
+          <Route exact path="/product" component={Layout} />
+          <Route exact path="/product/:id" component={ProductPage} />
+        </Switch>
       </CssBaseline>
     </Router>
   );
