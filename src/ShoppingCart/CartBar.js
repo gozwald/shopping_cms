@@ -9,6 +9,7 @@ import SearchIcon from "@material-ui/icons/Search";
 import MoreIcon from "@material-ui/icons/MoreVert";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import HomeIcon from "@material-ui/icons/Home";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -41,9 +42,11 @@ function CartBar(props) {
         square={false}
       >
         <Toolbar className={classes.toolbar}>
-          <IconButton>
-            <HomeIcon />
-          </IconButton>
+          <Link to={"/"}>
+            <IconButton>
+              <HomeIcon />
+            </IconButton>
+          </Link>
 
           <Typography className={classes.title} variant="h4" noWrap>
             {props.headerTitle}
