@@ -53,27 +53,23 @@ const Layout = props => {
   }, []);
 
   return (
-    <Switch>
-      <Grid container border={1}>
-        <Grid item xs={12}>
-          <Box borderBottom={1}>
-            <CartBar headerTitle={"Your Bag"} />
-          </Box>
-        </Grid>
-        <Grid container item xs={12}>
-          <Grid item xs={9}>
-            <List className={classes.listRoot} dense>
-              <ProductItems cartItems={cartItems} />
-            </List>
-          </Grid>
-          <Grid item xs={3}>
-            <PriceCard price={price} />
-          </Grid>
-        </Grid>
-        <Route exact />
-        <Route exact path="/product/:id" component={ProductPage} />
+    <Grid container border={1}>
+      <Grid item xs={12}>
+        <Box borderBottom={1}>
+          <CartBar headerTitle={"Your Bag"} />
+        </Box>
       </Grid>
-    </Switch>
+      <Grid container item xs={12}>
+        <Grid item xs={9}>
+          <List className={classes.listRoot} dense>
+            <ProductItems cartItems={cartItems} />
+          </List>
+        </Grid>
+        <Grid item xs={3}>
+          <PriceCard price={price} />
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
 
