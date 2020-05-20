@@ -11,6 +11,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import "./Font.css";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -78,8 +79,16 @@ export default function Main() {
                   Contact
                 </Button>
               </Container>
-              <ShoppingCartTwoToneIcon style={{ marginLeft: "17vw" }} />
-              Emtpy
+              <Link
+                to="/card"
+                style={{
+                  color: "inherit",
+                  textDecoration: "inherit",
+                  marginLeft: "17vw"
+                }}
+              >
+                <ShoppingCartTwoToneIcon />
+              </Link>
             </Toolbar>
           </Grid>
           <Grid item xs={12}>
