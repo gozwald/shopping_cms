@@ -48,7 +48,7 @@ const ProductItem = props => {
   );
   return (
     <Paper>
-      <Link to={`/product/${productID}`}>
+      <Link to={`/shop/${productID}`}>
         <ListItem onClick={() => null} className={classes.rooty}>
           <ListItemAvatar>
             <Avatar

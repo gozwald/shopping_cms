@@ -69,9 +69,18 @@ export default function Main() {
                 <Button style={{ fontSize: "1rem", padding: "20px" }}>
                   Blog
                 </Button>
-                <Button style={{ fontSize: "1rem", padding: "20px" }}>
-                  Shop
-                </Button>
+
+                <Link
+                  to="/shop"
+                  style={{
+                    color: "inherit",
+                    textDecoration: "inherit"
+                  }}
+                >
+                  <Button style={{ fontSize: "1rem", padding: "20px" }}>
+                    Shop
+                  </Button>
+                </Link>
                 <Button style={{ fontSize: "1rem", padding: "20px" }}>
                   FAQ
                 </Button>
