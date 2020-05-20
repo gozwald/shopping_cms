@@ -1,16 +1,16 @@
 import React from "react";
 import { CssBaseline } from "@material-ui/core";
 import { BrowserRouter as Router } from "react-router-dom";
-import Main from "./StartingPage/Main";
+import Layout from "../ShoppingCart/Layout";
 
-const App = () => {
+const MyRoot = () => {
   return (
     <Router>
       <CssBaseline>
-        <Main />
+        <Layout />
       </CssBaseline>
     </Router>
   );
 };
 
-export default App;
+export default MyRoot;
