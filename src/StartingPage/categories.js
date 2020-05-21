@@ -25,7 +25,7 @@ const useStyles = makeStyles(() => ({
   },
   cover: {
     width: "100%",
-    height: "8em"
+    height: "12vh"
   },
   leftDetails: {
     display: "flex",
