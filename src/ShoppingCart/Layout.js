@@ -1,16 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Typography, Grid, Box } from "@material-ui/core";
+import { Grid, Box } from "@material-ui/core";
 import PriceCard from "./PriceCard";
 import Client from "../Contentful";
-import ProductItem from "./ProductItem";
 import ProductItems from "./ProductItems";
 import CartBar from "./CartBar";
 import List from "@material-ui/core/List";
-import Paper from "@material-ui/core/Paper";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
-import { Switch, Route, useParams } from "react-router-dom";
-import ProductPage from "../ProductItem/ProductPage";
 
 const useStyle = makeStyles(theme => ({
   listRoot: {
@@ -20,7 +16,7 @@ const useStyle = makeStyles(theme => ({
   }
 }));
 
-const Layout = props => {
+const Layout = () => {
   const classes = useStyle();
   const [cartItems, setCartItems] = useState([]);
   const price = cartItems
