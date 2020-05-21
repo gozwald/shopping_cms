@@ -3,7 +3,7 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import CardContent from "@material-ui/core/CardContent";
 import "./Font.css";
 import createClient from "../Contentful";
@@ -50,41 +50,40 @@ export default function Main() {
   // }, []);
 
   useEffect(() => {
-  createClient.getEntries({
-    'content_type': 'category'
-  })
-  .then((entries) => {
-      setDatCat(entries.includes.Asset)
+    createClient.getEntries({
+      'content_type': 'category'
+    })
+      .then((entries) => {
+        setDatCat(entries.includes.Asset)
       })
   }, [])
 
   datCat && console.log(datCat)
 
   return (
-    
-      
 
-      <Box minWidth="800px">
-        <Grid container direction="row" style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}>
+
+    <Box minWidth="800px">
+      <Grid container direction="row" style={{backgroundColor: "rgb(55, 180, 0,0.32)"}}>
         <Container>
-          <Grid container item xs={12} >
-            
-          
-          <Grid item xs={3}>
-            <CardContent className={classes.leftDetails}>
-              <Typography noWrap variant="h4">
-                choose a flavor
-              </Typography>
-            </CardContent>
+          <Grid container item xs={12}>
+
+
+            <Grid item xs={3}>
+              <CardContent className={classes.leftDetails}>
+                <Typography noWrap variant="h4">
+                  choose a flavor
+                </Typography>
+              </CardContent>
+            </Grid>
+            <Grid item xs={9}>{datCat && datCat.map((result, index) =>
+              <Categories key={index} title={result.fields.title}
+                          pic={result.fields.file.url}/>)}
+            </Grid>
+
           </Grid>
-          <Grid item xs={9}>{datCat && datCat.map((result, index) => 
-          <Categories key={index} title={result.fields.title} 
-           pic={result.fields.file.url}/>)}
-           </Grid>
-         
-          </Grid>
-          </Container>
-        </Grid>
-        </Box>
+        </Container>
+      </Grid>
+    </Box>
   );
 }

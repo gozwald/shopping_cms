@@ -13,9 +13,12 @@ export default function Logonav() {
   return (
             <>
           <Grid container item xs={12} justify="center">
-            <Box margin="20px">
-              <img src="https://i.ibb.co/mbbtgkM/logo.png" alt="logo" />
-            </Box>
+            <Link to={'/'} style={{
+              color: "inherit",
+              textDecoration: "inherit"
+            }}><Box margin="20px">
+              <img src="https://i.ibb.co/mbbtgkM/logo.png" alt="logo"/>
+            </Box></Link>
           </Grid>
           <Grid
             style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}
