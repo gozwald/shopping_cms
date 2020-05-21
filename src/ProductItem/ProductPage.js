@@ -8,9 +8,12 @@ import Client from "../Contentful";
 import Grid from "@material-ui/core/Grid";
 import ProductPictures from "./ProductPictures";
 import ProductRating from "./ProductRating";
+import ProductCard from "../Products/ProductCard";
 
 const ProductPage = props => {
   const [product, setProduct] = useState([]);
+  const [productDesc, setProductDesc] = useState("");
+  console.log(product);
   /*
    *  * const tileData = [
    *   {
@@ -68,24 +71,37 @@ const ProductPage = props => {
       try {
         Client.getEntries({ content_type: "product" })
           .then(res => res.items.filter(item => item.sys.id === id))
-          .then(res => setProduct(res));
+          .then(res => {
+            setProduct(res[0].fields);
+            setProductDesc(
+              res[0].fields.productDescription.content[0].content[0].value
+            );
+          });
       } catch (e) {
         console.log(e);
       }
     };
     getProduct();
-  }, [id]);
+  }, []);
 
   return (
     <>
       <CartBar headerTitle={"Product"} />
       <Box p={2}>
-        <Grid container spacing={2} alignContent={"center"}>
+        <Grid
+          container
+          spacing={2}
+          alignContent={"center"}
+        >
           <Grid item xs={18}>
             <ProductPictures images={dummyPics} />
           </Grid>
-          <Grid item xs={4}>
-            <ProductRating rating={4} />
+          <Grid item xs={4} spacing={3}>
+            <Typography variant={"h3"}>{product.productName}</Typography>
+            <Typography variant={"subtitle1"}>{productDesc}</Typography>
+            <Box pt={3}>
+              <ProductRating rating={4} />
+            </Box>
           </Grid>
         </Grid>
       </Box>
