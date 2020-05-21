@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -12,6 +12,7 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import "./Font.css";
 import { Link } from "react-router-dom";
+import createClient from "../Contentful";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,6 +45,16 @@ const useStyles = makeStyles(theme => ({
 export default function Main() {
   const classes = useStyles();
   const theme = useTheme();
+
+    useEffect(() => {
+    createClient.getEntry("5JFZYyyeVdT7n1P55mhvQL").then(function(entry) {
+      // logs the entry metadata
+      console.log(entry);
+
+      // logs the field with ID title
+      console.log(entry.fields.productName);
+    });
+  }, []);
 
   return (
     <div>
