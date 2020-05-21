@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
@@ -12,6 +12,8 @@ import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import "./Font.css";
 import { Link } from "react-router-dom";
+import createClient from "../Contentful";
+import Categories from "./categories"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,6 +46,26 @@ const useStyles = makeStyles(theme => ({
 export default function Main() {
   const classes = useStyles();
   const theme = useTheme();
+
+  const [datCat, setDatCat] = useState(null);
+
+  //   useEffect(() => {
+  //   createClient.getEntry("7dazFg9VYSXuAKX1dWT9In").then(function(entry) {
+  //     // logs the entry metadata
+  //     console.log(entry);
+  //   });
+  // }, []);
+
+  useEffect(() => {
+  createClient.getEntries({
+    'content_type': 'category'
+  })
+  .then(function (entries) {
+      setDatCat(entries)
+      })
+  }, [])
+
+  datCat && console.log(datCat.items)
 
   return (
     <div>
@@ -147,62 +169,20 @@ export default function Main() {
               </Grid>
             </Box>
           </Grid>
-          <Grid item xs={3} />
-          <Grid item xs={9}>
-            <Card className={classes.root}>
-              <div className={classes.details}>
-                <CardContent className={classes.content}>
-                  <Typography variant="h3">Thinkers</Typography>
-                </CardContent>
-              </div>
-              <CardMedia
-                className={classes.cover}
-                image="https://img.jakpost.net/c/2019/03/02/2019_03_02_66706_1551461528._large.jpg"
-                title="Lovers"
-              />
-            </Card>
-          </Grid>
+          <Grid container item xs={12}>
           <Grid item xs={3}>
             <CardContent className={classes.leftDetails}>
               <Typography noWrap variant="h4">
                 choose a flavor
               </Typography>
-            </CardContent>
+            </CardContent></Grid>
+          <Grid item xs={9}>{datCat && datCat.items.map((result, index) => <Categories key={index} title={result.fields.picture.fields.title} pic={result.fields.picture.fields.file.url}/>)}</Grid>
           </Grid>
-          <Grid item xs={9}>
-            <Card className={classes.root}>
-              <div className={classes.details}>
-                <CardContent className={classes.content}>
-                  <Typography variant="h3">Lovers</Typography>
-                </CardContent>
-              </div>
-              <CardMedia
-                className={classes.cover}
-                image="https://www.irishcentral.com/uploads/article/120774/1-artist-paintbrush-iStock.jpg?t=1503746230"
-                title="Lovers"
-              />
-            </Card>
-          </Grid>
-          <Grid item xs={3} />
-          <Grid item xs={9}>
-            <Card className={classes.root}>
-              <div className={classes.details}>
-                <CardContent className={classes.content}>
-                  <Typography variant="h3">Tasters</Typography>
-                </CardContent>
-              </div>
-              <CardMedia
-                className={classes.cover}
-                image="https://www.anuga.com/media/redaktionell/anuga_1/img_15/fachmessen_3/fine_food_1/Fine_Food_j.jpg"
-                title="Tasters"
-              />
-            </Card>
-          </Grid>
-
           <Grid item xs={12}>
             Footer
           </Grid>
         </Grid>
+      
       </Container>
     </div>
   );
