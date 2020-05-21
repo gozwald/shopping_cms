@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -6,7 +6,6 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import "./Font.css";
-import createClient from "../Contentful";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -36,37 +35,25 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-export default function categories() {
-
-  const [datCat, setDatCat] = useState(null);
-
-  //   useEffect(() => {
-  //   createClient.getEntry("7dazFg9VYSXuAKX1dWT9In").then(function(entry) {
-  //     // logs the entry metadata
-  //     console.log(entry);
-  //   });
-  // }, []);
-
-  datCat && console.log(datCat.items)
+export default function Categories({title, pic}) {
+  const classes = useStyles();
 
   return (
-        <>
-          <Grid item xs={3} />
-          <Grid item xs={9}>
+    <>
+          <Grid item xs={12}>
             <Card className={classes.root}>
               <div className={classes.details}>
                 <CardContent className={classes.content}>
-                  <Typography variant="h3">Tasters</Typography>
+  <Typography variant="h3">{title}</Typography>
                 </CardContent>
               </div>
               <CardMedia
                 className={classes.cover}
-                image="https://www.anuga.com/media/redaktionell/anuga_1/img_15/fachmessen_3/fine_food_1/Fine_Food_j.jpg"
-                title="Tasters"
+                image={pic}
+                title={title}
               />
             </Card>
           </Grid>
-          </>
-         
+    </>
   );
 }
