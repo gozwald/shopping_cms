@@ -9,10 +9,12 @@ import Grid from "@material-ui/core/Grid";
 import ProductPictures from "./ProductPictures";
 import ProductRating from "./ProductRating";
 import ProductCard from "../Products/ProductCard";
+import Button from "@material-ui/core/Button";
 
 const ProductPage = props => {
   const [product, setProduct] = useState([]);
   const [productDesc, setProductDesc] = useState("");
+  const [price, setPrice] = useState("");
   console.log(product);
   /*
    *  * const tileData = [
@@ -73,6 +75,7 @@ const ProductPage = props => {
           .then(res => res.items.filter(item => item.sys.id === id))
           .then(res => {
             setProduct(res[0].fields);
+            setPrice(res[0].fields.productPrice);
             setProductDesc(
               res[0].fields.productDescription.content[0].content[0].value
             );
@@ -88,19 +91,23 @@ const ProductPage = props => {
     <>
       <CartBar headerTitle={"Product"} />
       <Box p={2}>
-        <Grid
-          container
-          spacing={2}
-          alignContent={"center"}
-        >
-          <Grid item xs={18}>
+        <Grid container spacing={2} alignContent={"center"}>
+          <Grid item xs={7}>
             <ProductPictures images={dummyPics} />
           </Grid>
-          <Grid item xs={4} spacing={3}>
-            <Typography variant={"h3"}>{product.productName}</Typography>
-            <Typography variant={"subtitle1"}>{productDesc}</Typography>
-            <Box pt={3}>
-              <ProductRating rating={4} />
+          <Grid item xs={4}>
+            <Box pl={2}>
+              <Typography variant={"h3"}>{product.productName}</Typography>
+              <Box py={2}>
+                <ProductRating rating={4} />
+                <Typography variant={"h5"}>${price}</Typography>
+              </Box>
+              <Typography variant={"subtitle1"}>{productDesc}</Typography>
+              <Box pt={3}>
+                <Button variant={"contained"} color={"secondary"}>
+                  Buy
+                </Button>
+              </Box>
             </Box>
           </Grid>
         </Grid>
