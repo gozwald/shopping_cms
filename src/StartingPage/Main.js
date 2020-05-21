@@ -60,16 +60,18 @@ export default function Main() {
   createClient.getEntries({
     'content_type': 'category'
   })
-  .then(function (entries) {
-      setDatCat(entries)
+  .then((entries) => {
+      setDatCat(entries.includes.Asset)
       })
   }, [])
 
-  datCat && console.log(datCat.items)
+  datCat && console.log(datCat)
 
   return (
-    <div>
-      <Container>
+    
+      
+      <Container maxWidth="lg">
+      <Box minWidth="800px">
         <Grid container direction="row">
           <Grid container item xs={12} justify="center">
             <Box margin="20px">
@@ -79,7 +81,6 @@ export default function Main() {
           <Grid
             style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}
             container
-            item
             xs={12}
             justify="center"
           >
@@ -158,11 +159,12 @@ export default function Main() {
                   </Box>
                 </Grid>
                 <Grid item xs={5}>
-                  <Box display="flex" height="100%" alignItems="flex-end">
+                  <Box display="flex" height="30vh" alignItems="flex-end">
                     <img
                       src="https://i.ibb.co/0fnnH39/female-hands-love-heart-symbol.jpg"
                       alt="heart hands"
-                      width="100%"
+                      width="90%"
+                      height="100%"
                     />
                   </Box>
                 </Grid>
@@ -170,20 +172,30 @@ export default function Main() {
             </Box>
           </Grid>
           <Grid container item xs={12}>
-          <Grid item xs={3}>
+          <Grid item xs={3} style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}>
             <CardContent className={classes.leftDetails}>
               <Typography noWrap variant="h4">
                 choose a flavor
               </Typography>
-            </CardContent></Grid>
-          <Grid item xs={9}>{datCat && datCat.items.map((result, index) => <Categories key={index} title={result.fields.picture.fields.title} pic={result.fields.picture.fields.file.url}/>)}</Grid>
+            </CardContent>
           </Grid>
-          <Grid item xs={12}>
-            Footer
+          <Grid item xs={9}>{datCat && datCat.map((result, index) => <Categories key={index} title={result.fields.title} pic={result.fields.file.url}/>)}</Grid>
           </Grid>
+
         </Grid>
-      
+        <Grid
+            style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}
+            container
+            xs={12}
+            justify="center"
+          >
+        <Toolbar style={{ fontSize: "20px", fontFamily: "Roboto" }}>
+
+            </Toolbar>
+        </Grid>
+        </Box>
       </Container>
-    </div>
+      
+    
   );
 }
