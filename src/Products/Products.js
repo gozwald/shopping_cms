@@ -52,7 +52,6 @@ const Products = props => {
   );
   return (
     <>
-      <CartBar headerTitle={"Products"} />
       <Box pt={3} px={6}>
         {products ? productItems : <CircularProgress />}
       </Box>

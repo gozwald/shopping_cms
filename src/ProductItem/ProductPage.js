@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { Typography } from "@material-ui/core";
-import CartBar from "../ShoppingCart/CartBar";
 import Box from "@material-ui/core/Box";
 
 import { useParams } from "react-router-dom";
@@ -93,7 +92,6 @@ const ProductPage = props => {
 
   return (
     <>
-      <CartBar headerTitle={"Product"} />
       <Box p={2}>
         <Grid container spacing={2} alignContent={"center"}>
           <Grid item xs={7}>

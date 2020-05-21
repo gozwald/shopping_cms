@@ -50,11 +50,6 @@ const Layout = () => {
 
   return (
     <Grid container border={1}>
-      <Grid item xs={12}>
-        <Box borderBottom={1}>
-          <CartBar headerTitle={"Your Bag"} />
-        </Box>
-      </Grid>
       <Grid container item xs={12}>
         <Grid item xs={9}>
           <List className={classes.listRoot} dense>
