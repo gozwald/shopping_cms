@@ -34,6 +34,7 @@ const Products = props => {
         key={item.sys.id}
         productInfo={item.fields.productDescription.content[0].content[0].value}
         productName={item.fields.productName}
+        pid={item.sys.id}
       />
     );
   });

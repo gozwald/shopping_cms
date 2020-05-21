@@ -8,6 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles({
   root: {
@@ -27,21 +28,29 @@ export default function ProductCard(props) {
   return (
     <Grid item>
       <Card className={classes.root}>
-        <CardActionArea>
-          <CardMedia
-            className={classes.media}
-            image={imageUrl}
-            title="Contemplative Reptile"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {props.productName}
-            </Typography>
-            <Typography variant="body2" color="textSecondary" component="p">
-              {props.productInfo}
-            </Typography>
-          </CardContent>
-        </CardActionArea>
+        <Link
+          style={{
+            color: "inherit",
+            textDecoration: "inherit"
+          }}
+          to={`/shop/${props.pid}`}
+        >
+          <CardActionArea>
+            <CardMedia
+              className={classes.media}
+              image={imageUrl}
+              title="Contemplative Reptile"
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="h2">
+                {props.productName}
+              </Typography>
+              <Typography variant="body2" color="textSecondary" component="p">
+                {props.productInfo}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Link>
       </Card>
     </Grid>
   );
