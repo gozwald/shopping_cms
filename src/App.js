@@ -9,19 +9,10 @@ import Products from "./Products/Products";
 import Logonav from "./StartingPage/logonav"
 import Upperhero from "./StartingPage/upperhero"
 
-const App = () => {
-  return (
-    <Router>
-      <CssBaseline>
-      <Logonav/>
-        <Switch>
-          <Route exact path="/">
-            <Upperhero/>
-            <Main/>
-          </Route>
-          <Route exact path="/card" component={Layout} />
-          <Route exact path="/shop" component={Products} />
-          <Route exact path="/shop/:id" component={ProductPage} />
+
+/*
+
+
 // =======
 //           <Route exact path="/" component={props => <Main {...props} />} />
 //           <Route
@@ -40,6 +31,21 @@ const App = () => {
 //             component={props => <ProductPage {...props} />}
 //           />
 // >>>>>>> master
+* */
+
+const App = () => {
+  return (
+    <Router>
+      <CssBaseline>
+      <Logonav/>
+        <Switch>
+          <Route exact path="/">
+            <Upperhero/>
+            <Main/>
+          </Route>
+          <Route exact path="/card" component={Layout} />
+          <Route exact path="/shop" component={Products} />
+          <Route exact path="/shop/:id" component={ProductPage} />
         </Switch>
         <Grid
             style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}
