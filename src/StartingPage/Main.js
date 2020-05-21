@@ -172,7 +172,7 @@ export default function Main() {
             </Box>
           </Grid>
           <Grid container item xs={12}>
-          <Grid item xs={3}>
+          <Grid item xs={3} style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}>
             <CardContent className={classes.leftDetails}>
               <Typography noWrap variant="h4">
                 choose a flavor
@@ -183,13 +183,19 @@ export default function Main() {
           </Grid>
 
         </Grid>
-        <Grid item xs={12}>
+        <Grid
+            style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}
+            container
+            xs={12}
+            justify="center"
+          >
         <Toolbar style={{ fontSize: "20px", fontFamily: "Roboto" }}>
-asd
+
             </Toolbar>
         </Grid>
         </Box>
       </Container>
+      
     
   );
 }
