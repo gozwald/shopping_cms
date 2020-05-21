@@ -11,10 +11,22 @@ const App = () => {
     <Router>
       <CssBaseline>
         <Switch>
-          <Route exact path="/" component={Main} />
-          <Route exact path="/card" component={Layout} />
-          <Route exact path="/shop" component={Products} />
-          <Route exact path="/shop/:id" component={ProductPage} />
+          <Route exact path="/" component={props => <Main {...props} />} />
+          <Route
+            exact
+            path="/card"
+            component={props => <Layout {...props} />}
+          />
+          <Route
+            exact
+            path="/shop"
+            component={props => <Products {...props} />}
+          />
+          <Route
+            exact
+            path="/shop/:id"
+            component={props => <ProductPage {...props} />}
+          />
         </Switch>
       </CssBaseline>
     </Router>
