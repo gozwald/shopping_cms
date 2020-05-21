@@ -12,7 +12,7 @@ const ProductItems = props => {
       productID={item.sys.id}
       productName={item.fields.productName}
       priceList={item.fields.productPrice}
-      category={item.fields.productCategory.fields.title}
+      // category={item.fields.productCategory.fields.title}
       image={item.fields.productPicture[0].fields.file.url}
     />
   ));

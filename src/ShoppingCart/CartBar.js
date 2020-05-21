@@ -51,16 +51,17 @@ function CartBar(props) {
           <Typography className={classes.title} variant="h4" noWrap>
             {props.headerTitle}
           </Typography>
-          <IconButton aria-label="search" color="inherit">
-            <ShoppingCartIcon />
-          </IconButton>
-          <IconButton
-            aria-label="display more actions"
-            edge="end"
-            color="inherit"
+          <Link
+            to={"/card"}
+            style={{
+              color: "inherit",
+              textDecoration: "inherit"
+            }}
           >
-            <MoreIcon />
-          </IconButton>
+            <IconButton aria-label="search" color="inherit">
+              <ShoppingCartIcon />
+            </IconButton>
+          </Link>
         </Toolbar>
       </AppBar>
     </div>

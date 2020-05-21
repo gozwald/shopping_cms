@@ -22,6 +22,24 @@ const App = () => {
           <Route exact path="/card" component={Layout} />
           <Route exact path="/shop" component={Products} />
           <Route exact path="/shop/:id" component={ProductPage} />
+// =======
+//           <Route exact path="/" component={props => <Main {...props} />} />
+//           <Route
+//             exact
+//             path="/card"
+//             component={props => <Layout {...props} />}
+//           />
+//           <Route
+//             exact
+//             path="/shop"
+//             component={props => <Products {...props} />}
+//           />
+//           <Route
+//             exact
+//             path="/shop/:id"
+//             component={props => <ProductPage {...props} />}
+//           />
+// >>>>>>> master
         </Switch>
         <Grid
             style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}
