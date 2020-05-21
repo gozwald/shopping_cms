@@ -15,6 +15,9 @@ const ProductPage = props => {
   const [product, setProduct] = useState([]);
   const [productDesc, setProductDesc] = useState("");
   const [price, setPrice] = useState("");
+  const [pic, setPic] = useState([]);
+  console.log(pic);
+
   console.log(product);
   /*
    *  * const tileData = [
@@ -79,6 +82,7 @@ const ProductPage = props => {
             setProductDesc(
               res[0].fields.productDescription.content[0].content[0].value
             );
+            setPic(res[0].fields.productPicture);
           });
       } catch (e) {
         console.log(e);
@@ -93,7 +97,7 @@ const ProductPage = props => {
       <Box p={2}>
         <Grid container spacing={2} alignContent={"center"}>
           <Grid item xs={7}>
-            <ProductPictures images={dummyPics} />
+            <ProductPictures images={pic} />
           </Grid>
           <Grid item xs={4}>
             <Box pl={2}>

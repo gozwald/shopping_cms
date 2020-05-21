@@ -12,12 +12,16 @@ const Products = props => {
   // const { productId } = useParams();
 
   const [products, setProducts] = useState([]);
+  const [productImage, setProductImage] = useState([]);
   // console.log(products);
+
 
   const getProducts = () => {
     try {
       Client.getEntries({ content_type: "product" }).then(res => {
         setProducts(res.items);
+        console.log(res.items[0].fields.productPicture[0].fields.file.url.substring(2))
+
       });
     } catch (e) {
       console.log(e);
@@ -28,10 +32,12 @@ const Products = props => {
   }, []);
 
   const productCarts = products.map(item => {
-    console.log(item.fields.productPicture[0].fields.file.url.substring(2));
+    // console.log(item.fields.productPicture[0].fields.file.url.substring(2));
     return (
       <ProductCard
         key={item.sys.id}
+        img={`http://${item.fields.productPicture[1].fields.file.url.substring(2)}`}
+        // image={item.fields.productPicture[0].fields.file.url.substring(2)}
         productInfo={item.fields.productDescription.content[0].content[0].value}
         productName={item.fields.productName}
         pid={item.sys.id}

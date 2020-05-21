@@ -38,7 +38,7 @@ export default function ProductCard(props) {
           <CardActionArea>
             <CardMedia
               className={classes.media}
-              image={imageUrl}
+              image={props.img}
               title="Contemplative Reptile"
             />
             <CardContent>
