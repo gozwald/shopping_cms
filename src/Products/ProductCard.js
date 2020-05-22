@@ -9,15 +9,16 @@ import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import { Link } from "react-router-dom";
+import TagBatch from "./TagBatch";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 345
+    maxWidth: 345,
   },
   media: {
     height: 0,
-    paddingTop: "56.25%" // 16:9
-  }
+    paddingTop: "56.25%", // 16:9
+  },
 });
 
 export default function ProductCard(props) {
@@ -31,7 +32,7 @@ export default function ProductCard(props) {
         <Link
           style={{
             color: "inherit",
-            textDecoration: "inherit"
+            textDecoration: "inherit",
           }}
           to={`/shop/${props.pid}`}
         >
@@ -48,6 +49,7 @@ export default function ProductCard(props) {
               <Typography variant="body2" color="textSecondary" component="p">
                 {props.productInfo}
               </Typography>
+              <TagBatch tag={props.tag} />
             </CardContent>
           </CardActionArea>
         </Link>

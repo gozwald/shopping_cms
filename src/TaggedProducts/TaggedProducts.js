@@ -5,38 +5,26 @@ import Box from "@material-ui/core/Box";
 import Client from "../Contentful";
 import { CircularProgress } from "@material-ui/core";
 import ProductCard from "../Products/ProductCard";
+import { useParams } from "react-router";
 
-const TaggedProducts = props => {
-  // const { match } = useRouteMatch();
-  // const {tag} = useParams();
-  const tag = "lovers";
+const TaggedProducts = (props) => {
+  const { tag } = useParams();
 
   const [products, setProducts] = useState([]);
-  // console.log(products);i
 
-  // .then(res => res.items.filter(item => item.fields.productCategory.fields.title === title))
-
-  //
-  // const getProducts = () => {
-  //   try {
-  //     Client.getEntries({ content_type: "product" }).then(res => {
-  //       setProducts(res.items);
-  //       // console.log(res.items[0].fields.productPicture[0].fields.file.url.substring(2))
-  //     });
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
+  const capitalize = (s) => {
+    if (typeof s !== "string") return "";
+    return s.charAt(0).toUpperCase() + s.slice(1);
+  };
 
   const getProductsByTag = () => {
     try {
-      Client.getEntries({ content_type: "product" }).then(res => {
+      Client.getEntries({ content_type: "product" }).then((res) => {
         const tagged = res.items.filter(
-          item => item.fields.productCategory.fields.title === "Lovers"
+          (item) => item.fields.productCategory.fields.title === capitalize(tag)
         );
         setProducts(tagged);
       });
-      // console.log(res.items[0].fields.productPicture[0].fields.file.url.substring(2))
     } catch (e) {
       console.log(e);
     }
@@ -46,8 +34,7 @@ const TaggedProducts = props => {
     getProductsByTag();
   }, []);
 
-  const productCarts = products.map(item => {
-    // console.log(item.fields.productPicture[0].fields.file.url.substring(2));
+  const productCarts = products.map((item) => {
     return (
       <ProductCard
         key={item.sys.id}
@@ -58,6 +45,7 @@ const TaggedProducts = props => {
         productInfo={item.fields.productDescription.content[0].content[0].value}
         productName={item.fields.productName}
         pid={item.sys.id}
+        tag={item.fields.productCategory.fields.title}
       />
     );
   });
