@@ -12,29 +12,28 @@ import Categories from "./categories";
 const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
-    margin: "2px"
   },
   details: {
     display: "flex",
     flexDirection: "column",
-    width: "100%"
+    width: "100%",
   },
   content: {
     flexDirection: "column",
     justifyContent: "center",
     display: "flex",
-    height: "100%"
+    height: "100%",
   },
   cover: {
     width: "100%",
-    height: "8em"
+    height: "8em",
   },
   leftDetails: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    height: "100%"
-  }
+    height: "100%",
+  },
 }));
 
 export default function Main() {
@@ -54,7 +53,7 @@ export default function Main() {
       .getEntries({
         content_type: "category"
       })
-      .then(entries => {
+      .then((entries) => {
         setDatCat(entries.includes.Asset);
       });
   }, []);
@@ -68,7 +67,7 @@ export default function Main() {
         direction="row"
         style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}
       >
-        <Container>
+        <Container maxWidth="lg">
           <Grid container item xs={12}>
             <Grid item xs={3}>
               <CardContent className={classes.leftDetails}>
