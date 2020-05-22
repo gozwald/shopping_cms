@@ -51,7 +51,7 @@ export default function Main() {
   useEffect(() => {
     createClient
       .getEntries({
-        content_type: "category"
+        content_type: "category",
       })
       .then((entries) => {
         setDatCat(entries.includes.Asset);
