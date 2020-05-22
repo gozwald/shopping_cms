@@ -7,7 +7,7 @@ import { CircularProgress } from "@material-ui/core";
 import ProductCard from "./ProductCard";
 import ProductItem from "../ShoppingCart/ProductItem";
 
-const Products = props => {
+const Products = (props) => {
   // const { match } = useRouteMatch();
   // const { productId } = useParams();
 
@@ -15,7 +15,7 @@ const Products = props => {
 
   const getProducts = () => {
     try {
-      Client.getEntries({ content_type: "product" }).then(res => {
+      Client.getEntries({ content_type: "product" }).then((res) => {
         setProducts(res.items);
         // console.log(res.items[0].fields.productPicture[0].fields.file.url.substring(2))
       });
@@ -27,7 +27,7 @@ const Products = props => {
     getProducts();
   }, []);
 
-  const productCarts = products.map(item => {
+  const productCarts = products.map((item) => {
     // console.log(item.fields.productPicture[0].fields.file.url.substring(2));
     return (
       <ProductCard
@@ -39,6 +39,7 @@ const Products = props => {
         productInfo={item.fields.productDescription.content[0].content[0].value}
         productName={item.fields.productName}
         pid={item.sys.id}
+        tag={item.fields.productCategory.fields.title}
       />
     );
   });
