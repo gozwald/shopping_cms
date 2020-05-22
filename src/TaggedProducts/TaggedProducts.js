@@ -8,26 +8,9 @@ import ProductCard from "../Products/ProductCard";
 import { useParams } from "react-router";
 
 const TaggedProducts = (props) => {
-  // const { match } = useRouteMatch();
   const { tag } = useParams();
-  // const tag = "lovers";
 
   const [products, setProducts] = useState([]);
-  // console.log(products);i
-
-  // .then(res => res.items.filter(item => item.fields.productCategory.fields.title === title))
-
-  //
-  // const getProducts = () => {
-  //   try {
-  //     Client.getEntries({ content_type: "product" }).then(res => {
-  //       setProducts(res.items);
-  //       // console.log(res.items[0].fields.productPicture[0].fields.file.url.substring(2))
-  //     });
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
 
   const capitalize = (s) => {
     if (typeof s !== "string") return "";
@@ -42,7 +25,6 @@ const TaggedProducts = (props) => {
         );
         setProducts(tagged);
       });
-      // console.log(res.items[0].fields.productPicture[0].fields.file.url.substring(2))
     } catch (e) {
       console.log(e);
     }
@@ -53,7 +35,6 @@ const TaggedProducts = (props) => {
   }, []);
 
   const productCarts = products.map((item) => {
-    // console.log(item.fields.productPicture[0].fields.file.url.substring(2));
     return (
       <ProductCard
         key={item.sys.id}
@@ -64,6 +45,7 @@ const TaggedProducts = (props) => {
         productInfo={item.fields.productDescription.content[0].content[0].value}
         productName={item.fields.productName}
         pid={item.sys.id}
+        tag={item.fields.productCategory.fields.title}
       />
     );
   });
