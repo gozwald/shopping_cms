@@ -6,7 +6,7 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import "./Font.css";
-import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -41,16 +41,18 @@ export default function Categories({ title, pic }) {
 
   return (
     <>
-      <Grid item xs={12}>
-        <Card className={classes.root}>
-          <div className={classes.details}>
-            <CardContent className={classes.content}>
-              <Typography variant="h3">{title}</Typography>
-            </CardContent>
-          </div>
-          <CardMedia className={classes.cover} image={pic} title={title} />
-        </Card>
-      </Grid>
+      <Link>
+        <Grid item xs={12}>
+          <Card className={classes.root}>
+            <div className={classes.details}>
+              <CardContent className={classes.content}>
+                <Typography variant="h3">{title}</Typography>
+              </CardContent>
+            </div>
+            <CardMedia className={classes.cover} image={pic} title={title} />
+          </Card>
+        </Grid>
+      </Link>
     </>
   );
 }

@@ -47,7 +47,6 @@ const App = () => {
           <Route exact path="/card" component={Layout} />
           <Route exact path="/shop" component={Products} />
           <Route exact path="/shop/:id" component={ProductPage} />
-          <Route exact path="/shop/cat/:title" component={CatPage} />
         </Switch>
         <Grid
           style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}
