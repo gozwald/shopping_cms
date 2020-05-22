@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
-    margin: "2px",
+    margin: "7px",
   },
   details: {
     display: "flex",
@@ -26,7 +26,7 @@ const useStyles = makeStyles(() => ({
   },
   cover: {
     width: "100%",
-    height: "12vh",
+    // height: "12vh",
   },
   leftDetails: {
     display: "flex",
@@ -41,17 +41,15 @@ export default function Categories({ title, pic }) {
 
   return (
     <>
-      <Link>
-        <Grid item xs={12}>
-          <Card className={classes.root}>
-            <div className={classes.details}>
-              <CardContent className={classes.content}>
-                <Typography variant="h3">{title}</Typography>
-              </CardContent>
-            </div>
-            <CardMedia className={classes.cover} image={pic} title={title} />
-          </Card>
-        </Grid>
+      <Link style={{ textDecoration: "none" }} to={`/shop/${title}`}>
+        <Card className={classes.root}>
+          <div className={classes.details}>
+            <CardContent className={classes.content}>
+              <Typography variant="h3">{title}</Typography>
+            </CardContent>
+          </div>
+          <CardMedia className={classes.cover} image={pic} title={title} />
+        </Card>
       </Link>
     </>
   );

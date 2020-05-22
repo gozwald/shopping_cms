@@ -4,7 +4,6 @@ import { CssBaseline, Grid } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Main from "./StartingPage/Main";
 import ProductPage from "./ProductItem/ProductPage";
-import CatPage from "./ProductItem/CatPage";
 import Layout from "./ShoppingCart/Layout";
 import { Toolbar } from "@material-ui/core";
 import Products from "./Products/Products";
