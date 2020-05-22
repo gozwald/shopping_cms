@@ -4,27 +4,46 @@ import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
 import Client from "../Contentful";
 import { CircularProgress } from "@material-ui/core";
-import ProductCard from "./ProductCard";
-import ProductItem from "../ShoppingCart/ProductItem";
+import ProductCard from "../Products/ProductCard";
 
-const Products = props => {
+const TaggedProducts = props => {
   // const { match } = useRouteMatch();
-  // const { productId } = useParams();
+  // const {tag} = useParams();
+  const tag = "lovers";
 
   const [products, setProducts] = useState([]);
+  // console.log(products);i
 
-  const getProducts = () => {
+  // .then(res => res.items.filter(item => item.fields.productCategory.fields.title === title))
+
+  //
+  // const getProducts = () => {
+  //   try {
+  //     Client.getEntries({ content_type: "product" }).then(res => {
+  //       setProducts(res.items);
+  //       // console.log(res.items[0].fields.productPicture[0].fields.file.url.substring(2))
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+
+  const getProductsByTag = () => {
     try {
       Client.getEntries({ content_type: "product" }).then(res => {
-        setProducts(res.items);
-        // console.log(res.items[0].fields.productPicture[0].fields.file.url.substring(2))
+        const tagged = res.items.filter(
+          item => item.fields.productCategory.fields.title === "Lovers"
+        );
+        setProducts(tagged);
       });
+      // console.log(res.items[0].fields.productPicture[0].fields.file.url.substring(2))
     } catch (e) {
       console.log(e);
     }
   };
+
   useEffect(() => {
-    getProducts();
+    getProductsByTag();
   }, []);
 
   const productCarts = products.map(item => {
@@ -57,4 +76,4 @@ const Products = props => {
   );
 };
 
-export default Products;
+export default TaggedProducts;

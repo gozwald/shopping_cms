@@ -1,11 +1,12 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import {makeStyles} from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import "./Font.css";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -39,21 +40,19 @@ export default function Categories({title, pic}) {
   const classes = useStyles();
 
   return (
-    <>
-          <Grid item xs={12}>
-            <Card className={classes.root}>
-              <div className={classes.details}>
-                <CardContent className={classes.content}>
-  <Typography variant="h3">{title}</Typography>
-                </CardContent>
-              </div>
-              <CardMedia
-                className={classes.cover}
-                image={pic}
-                title={title}
-              />
-            </Card>
-          </Grid>
-    </>
+      <Grid item xs={12}>
+        <Card className={classes.root}>
+          <div className={classes.details}>
+            <CardContent className={classes.content}>
+              <Typography variant="h3">{title}</Typography>
+            </CardContent>
+          </div>
+          <CardMedia
+            className={classes.cover}
+            image={pic}
+            title={title}
+          />
+        </Card>
+      </Grid>
   );
 }
