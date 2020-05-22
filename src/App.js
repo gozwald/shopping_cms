@@ -3,6 +3,7 @@ import { CssBaseline, Grid } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Main from "./StartingPage/Main";
 import ProductPage from "./ProductItem/ProductPage";
+import CatPage from "./ProductItem/CatPage";
 import Layout from "./ShoppingCart/Layout";
 import { Toolbar } from "@material-ui/core";
 import Products from "./Products/Products";
@@ -46,6 +47,7 @@ const App = () => {
           <Route exact path="/card" component={Layout} />
           <Route exact path="/shop" component={Products} />
           <Route exact path="/shop/:id" component={ProductPage} />
+          <Route exact path="/shop/:cat" component={CatPage} />
         </Switch>
         <Grid
             style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}
