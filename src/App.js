@@ -9,6 +9,9 @@ import { Toolbar } from "@material-ui/core";
 import Products from "./Products/Products";
 import Logonav from "./StartingPage/logonav";
 import Upperhero from "./StartingPage/upperhero";
+// <<<<<<< productsByTag
+import TaggedProducts from "./TaggedProducts/TaggedProducts";
+
 
 /*
 
@@ -46,6 +49,7 @@ const App = () => {
           <Route exact path="/card" component={Layout} />
           <Route exact path="/shop" component={Products} />
           <Route exact path="/shop/:id" component={ProductPage} />
+          <Route exact path="/tag/lovers" component={TaggedProducts} />
         </Switch>
         <Grid
           style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}
