@@ -6,54 +6,51 @@ import Card from "@material-ui/core/Card";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
 import "./Font.css";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
-    margin: "2px"
+    margin: "2px",
   },
   details: {
     display: "flex",
     flexDirection: "column",
-    width: "100%"
+    width: "100%",
   },
   content: {
     flexDirection: "column",
     justifyContent: "center",
     display: "flex",
-    height: "100%"
+    height: "100%",
   },
   cover: {
     width: "100%",
-    height: "12vh"
+    height: "12vh",
   },
   leftDetails: {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
-    height: "100%"
-  }
+    height: "100%",
+  },
 }));
 
-export default function Categories({title, pic}) {
+export default function Categories({ title, pic }) {
   const classes = useStyles();
 
   return (
     <>
-          <Grid item xs={12}>
-            <Card className={classes.root}>
-              <div className={classes.details}>
-                <CardContent className={classes.content}>
-  <Typography variant="h3">{title}</Typography>
-                </CardContent>
-              </div>
-              <CardMedia
-                className={classes.cover}
-                image={pic}
-                title={title}
-              />
-            </Card>
-          </Grid>
+      <Grid item xs={12}>
+        <Card className={classes.root}>
+          <div className={classes.details}>
+            <CardContent className={classes.content}>
+              <Typography variant="h3">{title}</Typography>
+            </CardContent>
+          </div>
+          <CardMedia className={classes.cover} image={pic} title={title} />
+        </Card>
+      </Grid>
     </>
   );
 }
