@@ -41,7 +41,7 @@ export default function Categories({ title, pic }) {
 
   return (
     <>
-      <Link style={{ textDecoration: "none" }} to={`/tag/${title}`}>
+      <Link style={{ textDecoration: "none" }} to={`/products/${title}`}>
         <Card raised="true" className={classes.root}>
           <div className={classes.details}>
             <CardContent className={classes.content}>

@@ -14,11 +14,11 @@ app.get("/", (req, res) => {
 * SELECT product_name FROM product LEFT JOIN category ON product.product_category = category.category_id
   WHERE category.category = 'Thinkers'
 * */
-app.get("/products/:tag", (req, res) => {
-  const { tag } = req.params;
+app.get("/products/:category", (req, res) => {
+  const { category } = req.params;
   db.query(
     "SELECT * FROM product LEFT JOIN category ON (product.product_category = category.category_id) WHERE category.category iLike $1",
-    [tag]
+    [category]
   )
     .then((products) => res.json(products.rows))
     .catch((error) => console.log(error));
