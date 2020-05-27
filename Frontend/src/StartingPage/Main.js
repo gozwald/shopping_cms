@@ -58,6 +58,12 @@ export default function Main() {
       });
   }, []);
 
+  useEffect(() => {
+    fetch("http://localhost:5000/", { method: "GET" })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
+
   datCat && console.log(datCat);
 
   return (
