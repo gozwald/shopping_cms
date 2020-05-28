@@ -1,0 +1,22 @@
+EndpointP: "/getCategories"
+Data to send:
+Category Title (props: title) e.g.: Tasters || Thinkers || Lovers
+Category Picture (props: pic) e.g.: url
+ID for map()
+
+
+EP: "/products" rename '/products'
+Data to send:
+id
+product image as url (prop url)
+Product Description (prop: productInfo)
+Product name (prop productName)
+category name (prop tag)
+
+
+Endpoint '/products/:id'
+Data to send:
+id
+product image as url (prop (images))
+Product Description
+Category Name of the Product

@@ -7,45 +7,33 @@ import { CircularProgress } from "@material-ui/core";
 import ProductCard from "../Products/ProductCard";
 import { useParams } from "react-router";
 
-const TaggedProducts = (props) => {
-  const { tag } = useParams();
+const TaggedProducts = () => {
+  const { category } = useParams();
 
   const [products, setProducts] = useState([]);
 
-  const capitalize = (s) => {
-    if (typeof s !== "string") return "";
-    return s.charAt(0).toUpperCase() + s.slice(1);
-  };
-
-  const getProductsByTag = () => {
-    try {
-      Client.getEntries({ content_type: "product" }).then((res) => {
-        const tagged = res.items.filter(
-          (item) => item.fields.productCategory.fields.title === capitalize(tag)
-        );
-        setProducts(tagged);
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   useEffect(() => {
+    const getProductsByTag = () => {
+      try {
+        fetch(`http://localhost:5000/products/${category}`, { method: "GET" })
+          .then((response) => response.json())
+          .then((res) => setProducts(res));
+      } catch (e) {
+        console.log(e);
+      }
+    };
     getProductsByTag();
-  }, []);
+  }, [category]);
 
   const productCarts = products.map((item) => {
     return (
       <ProductCard
-        key={item.sys.id}
-        img={`http://${item.fields.productPicture[1].fields.file.url.substring(
-          2
-        )}`}
-        // image={item.fields.productPicture[0].fields.file.url.substring(2)}
-        productInfo={item.fields.productDescription.content[0].content[0].value}
-        productName={item.fields.productName}
-        pid={item.sys.id}
-        tag={item.fields.productCategory.fields.title}
+        key={item.product_id}
+        img={item.product_picture}
+        productInfo={item.product_description}
+        productName={item.product_name}
+        pid={item.product_id}
+        tag={item.category}
       />
     );
   });
