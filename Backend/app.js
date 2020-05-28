@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 app.get("/products/:category", (req, res) => {
   const { category } = req.params;
   db.query(
-    "SELECT * FROM product LEFT JOIN category ON (product.product_category = category.category_id) WHERE category.category iLike $1",
+    "SELECT product_id, product_description, product_name, product_picture, category FROM product LEFT JOIN category ON (product.product_category = category.category_id) WHERE category.category iLike $1",
     [category]
   )
     .then((products) => res.json(products.rows))
