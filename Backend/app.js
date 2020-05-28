@@ -6,7 +6,7 @@ const cors = require("cors");
 
 app.use(cors());
 
-app.get("/", (req, res) => {
+app.get("/category", (req, res) => {
   db.query("SELECT * FROM CATEGORY").then((e) => res.json(e.rows));
 });
 
