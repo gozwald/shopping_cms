@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import CardContent from "@material-ui/core/CardContent";
 import "./Font.css";
-import createClient from "../Contentful";
 import Categories from "./categories";
 
 const useStyles = makeStyles(() => ({
@@ -39,32 +38,15 @@ const useStyles = makeStyles(() => ({
 export default function Main() {
   const classes = useStyles();
 
-  const [datCat, setDatCat] = useState(null);
-
-  //   useEffect(() => {
-  //   createClient.getEntry("7dazFg9VYSXuAKX1dWT9In").then(function(entry) {
-  //     // logs the entry metadata
-  //     console.log(entry);
-  //   });
-  // }, []);
+  const [datCatloc, setDatCatloc] = useState(null);
 
   useEffect(() => {
-    createClient
-      .getEntries({
-        content_type: "category",
-      })
-      .then((entries) => {
-        setDatCat(entries.includes.Asset);
-      });
-  }, []);
-
-  useEffect(() => {
-    fetch("http://localhost:5000/", { method: "GET" })
+    fetch("http://localhost:5000/category", { method: "GET" })
       .then((response) => response.json())
-      .then((data) => console.log(data));
+      .then((data) => setDatCatloc(data));
   }, []);
 
-  datCat && console.log(datCat);
+  datCatloc && console.log(datCatloc);
 
   return (
     <Box minWidth="800px">
@@ -83,12 +65,12 @@ export default function Main() {
               </CardContent>
             </Grid>
             <Grid item xs={9}>
-              {datCat &&
-                datCat.map((result, index) => (
+              {datCatloc &&
+                datCatloc.map((result, index) => (
                   <Categories
                     key={index}
-                    title={result.fields.title}
-                    pic={result.fields.file.url}
+                    title={result.category}
+                    pic={result.picture}
                   />
                 ))}
             </Grid>
