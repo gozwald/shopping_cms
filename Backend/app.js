@@ -16,6 +16,21 @@ app.get("/blog/getall", (req, res) => {
     .catch((error) => console.log(error));
 });
 
+app.post("/blog/post/:user", (req, res) => {
+  const { user } = req.params;
+  const { post_date, post_type, post_title, post_content } = req.body;
+
+  db.query("SELECT author_id FROM authors WHERE author_username = $1", [user])
+    .then((e) => {
+      return db.query(
+        "INSERT INTO posts (post_date, post_type, post_title, post_content, post_author_id) VALUES ($1, $2, $3, $4, $5) returning *",
+        [post_date, post_type, post_title, post_content, e.rows[0].author_id]
+      );
+    })
+    .then((e) => res.json(e.rows))
+    .catch((error) => console.log(error));
+});
+
 app.get("/category", (req, res) => {
   db.query("SELECT * FROM CATEGORY")
     .then((e) => res.json(e.rows))
