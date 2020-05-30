@@ -71,6 +71,14 @@ app.put("/blog/update/", (req, res) => {
     .catch((error) => console.log(error));
 });
 
+app.delete("/blog/delete/", (req, res) => {
+  const { post_id } = req.body;
+
+  db.query("DELETE FROM posts WHERE post_id = $1 returning *", [post_id])
+    .then((e) => res.json(e.rows))
+    .catch((error) => console.log(error));
+});
+
 app.get("/products", (req, res) => {
   const query = req.query;
   const limit = query.num;
