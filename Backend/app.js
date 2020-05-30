@@ -10,13 +10,13 @@ app.use(cors());
 
 app.get("/blog/getall", (req, res) => {
   db.query(
-    "SELECT author_name, author_avatar, author_description, post_date, post_type, post_title, post_content FROM authors JOIN posts ON author_id=post_author_id"
+    "SELECT post_id, author_name, author_avatar, author_description, post_date, post_type, post_title, post_content FROM authors JOIN posts ON author_id=post_author_id"
   )
     .then((e) => res.json(e.rows))
     .catch((error) => console.log(error));
 });
 
-app.post("/blog/post/addauthor", (req, res) => {
+app.post("/blog/addauthor", (req, res) => {
   const {
     author_username,
     author_password,
@@ -38,11 +38,18 @@ app.post("/blog/post/addauthor", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-app.post("/blog/post/:user", (req, res) => {
-  const { user } = req.params;
-  const { post_date, post_type, post_title, post_content } = req.body;
+app.post("/blog/post/", (req, res) => {
+  const {
+    author_username,
+    post_date,
+    post_type,
+    post_title,
+    post_content,
+  } = req.body;
 
-  db.query("SELECT author_id FROM authors WHERE author_username = $1", [user])
+  db.query("SELECT author_id FROM authors WHERE author_username = $1", [
+    author_username,
+  ])
     .then((e) => {
       return db.query(
         "INSERT INTO posts (post_date, post_type, post_title, post_content, post_author_id) VALUES ($1, $2, $3, $4, $5) returning *",
@@ -53,8 +60,13 @@ app.post("/blog/post/:user", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-app.get("/category", (req, res) => {
-  db.query("SELECT * FROM CATEGORY")
+app.put("/blog/update/", (req, res) => {
+  const { post_id, post_date, post_type, post_title, post_content } = req.body;
+
+  db.query(
+    "UPDATE posts SET post_date = $1, post_type = $2, post_title = $3, post_content = $4 WHERE post_id = $5 returning *",
+    [post_date, post_type, post_title, post_content, post_id]
+  )
     .then((e) => res.json(e.rows))
     .catch((error) => console.log(error));
 });
