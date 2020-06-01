@@ -142,6 +142,12 @@ app.get("/products", (req, res) => {
         .catch(console.log);
 });
 
+app.get("/category", (req, res) => {
+  db.query("SELECT * FROM category")
+    .then((e) => res.json(e.rows))
+    .catch((error) => console.log(error));
+});
+
 app.get("/products/:category", (req, res) => {
   const { category } = req.params;
   db.query(
