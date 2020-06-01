@@ -3,10 +3,22 @@ require("dotenv").config();
 const db = require("./database");
 const app = express();
 const cors = require("cors");
+const jwt = require("jsonwebtoken");
+const cookieParser = require("cookie-parser");
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
+
+const verifyToken = (req, res, next) => {
+  if (req.cookies.token !== "undefined") {
+    req.token = req.cookies.token;
+    next();
+  } else {
+    res.sendStatus(403);
+  }
+};
 
 app.get("/blog/getall", (req, res) => {
   db.query(
@@ -14,6 +26,35 @@ app.get("/blog/getall", (req, res) => {
   )
     .then((e) => res.json(e.rows))
     .catch((error) => console.log(error));
+});
+
+app.post("/blog/login", (req, res) => {
+  // Mock user
+  const user = {
+    id: 1,
+    username: "brad",
+    email: "brad@gmail.com",
+  };
+
+  jwt.sign({ user }, "secretkey", (err, token) => {
+    res.cookie("token", token);
+    res.json({
+      token,
+    });
+  });
+});
+
+app.post("/blog/posts", verifyToken, (req, res) => {
+  jwt.verify(req.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      res.json({
+        message: "Post created...",
+        authData,
+      });
+    }
+  });
 });
 
 app.post("/blog/addauthor", (req, res) => {
