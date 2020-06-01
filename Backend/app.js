@@ -13,7 +13,6 @@ app.use(cors());
 
 const verifyToken = (req, res, next) => {
   if (req.cookies.token !== "undefined") {
-    req.token = req.cookies.token;
     next();
   } else {
     res.sendStatus(403);
@@ -29,23 +28,26 @@ app.get("/blog/getall", (req, res) => {
 });
 
 app.post("/blog/login", (req, res) => {
-  // Mock user
-  const user = {
-    id: 1,
-    username: "brad",
-    email: "brad@gmail.com",
-  };
+  const { author_username, author_password } = req.body;
 
-  jwt.sign({ user }, "secretkey", (err, token) => {
-    res.cookie("token", token);
-    res.json({
-      token,
-    });
-  });
+  db.query("SELECT author_password FROM authors WHERE author_username = $1", [
+    author_username,
+  ])
+    .then((e) => {
+      if (e.rows[0].author_password === author_password) {
+        jwt.sign(author_username, "secretkey", (err, token) => {
+          res.cookie("token", token);
+          res.send("mission accomplished cookie!");
+        });
+      } else {
+        res.sendStatus(403);
+      }
+    })
+    .catch((error) => console.log(error));
 });
 
-app.post("/blog/posts", verifyToken, (req, res) => {
-  jwt.verify(req.token, "secretkey", (err, authData) => {
+app.post("/blog/authoredit", verifyToken, (req, res) => {
+  jwt.verify(req.cookies.token, "secretkey", (err, authData) => {
     if (err) {
       res.sendStatus(403);
     } else {
