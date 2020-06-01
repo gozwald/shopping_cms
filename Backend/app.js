@@ -37,7 +37,7 @@ app.post("/blog/login", (req, res) => {
       if (e.rows[0].author_password === author_password) {
         jwt.sign(author_username, "secretkey", (err, token) => {
           res.cookie("token", token);
-          res.send("mission accomplished cookie!");
+          res.sendStatus(200);
         });
       } else {
         res.sendStatus(403);
@@ -51,10 +51,10 @@ app.post("/blog/authoredit", verifyToken, (req, res) => {
     if (err) {
       res.sendStatus(403);
     } else {
-      res.json({
-        message: "Post created...",
-        authData,
-      });
+      db.query(
+        "SELECT post_id, author_name, author_username, author_avatar, author_description, post_date, post_type, post_title, post_content FROM authors JOIN posts ON author_id=post_author_id WHERE author_username = $1",
+        [authData]
+      ).then((e) => res.json(e.rows));
     }
   });
 });
