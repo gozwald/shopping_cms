@@ -17,12 +17,12 @@ app.get("/products", (req, res) => {
 
   query.num
     ? db
-      .query(
-        "SELECT product_id, product_description, product_name, category FROM product JOIN category ON product_category = category_id LIMIT $1",
-        [limit]
-      )
-      .then((data) => res.json(data.rows))
-      .catch(console.log)
+        .query(
+          "SELECT product_id, product_description, product_name, category FROM product JOIN category ON product_category = category_id LIMIT $1",
+          [limit]
+        )
+        .then((data) => res.json(data.rows))
+        .catch(console.log)
     : db
       .query(
         "SELECT product_id, product_description, product_name, category FROM product JOIN category ON product_category = category_id"
@@ -39,6 +39,13 @@ app.get("/products/:category", (req, res) => {
   )
     .then((products) => res.json(products.rows))
     .catch((error) => console.log(error));
+});
+
+app.get("products/:id", (req, res) => {
+  const { id } = req.params;
+  db.query("SELECT * From product WHERE product_id = $1", [id])
+    .then((product) => res.json(product).rows)
+    .catch((e) => console.log(e));
 });
 
 app.listen(5000, () => console.log("Server is running on port: 5000"));
