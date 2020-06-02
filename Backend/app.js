@@ -18,17 +18,17 @@ app.get("/products", (req, res) => {
   query.num
     ? db
         .query(
-          "SELECT product_id, product_description, product_name, category FROM product JOIN category ON product_category = category_id LIMIT $1",
+          "SELECT product_id, product_description, product_name,product_picture, category FROM product JOIN category ON product_category = category_id LIMIT $1",
           [limit]
         )
         .then((data) => res.json(data.rows))
         .catch(console.log)
     : db
-      .query(
-        "SELECT product_id, product_description, product_name, category FROM product JOIN category ON product_category = category_id"
-      )
-      .then((data) => res.json(data.rows))
-      .catch(console.log);
+        .query(
+          "SELECT product_id, product_description, product_name, product_picture, category FROM product JOIN category ON product_category = category_id"
+        )
+        .then((data) => res.json(data.rows))
+        .catch(console.log);
 });
 
 app.get("/products/:category", (req, res) => {
@@ -41,10 +41,10 @@ app.get("/products/:category", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-app.get("products/:id", (req, res) => {
+app.get("/product/:id", (req, res) => {
   const { id } = req.params;
   db.query("SELECT * From product WHERE product_id = $1", [id])
-    .then((product) => res.json(product).rows)
+    .then((product) => res.json(product.rows[0]))
     .catch((e) => console.log(e));
 });
 
