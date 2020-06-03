@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Client from "./Contentful";
 import { CssBaseline, Grid } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -36,6 +36,18 @@ import TaggedProducts from "./TaggedProducts/TaggedProducts";
 * */
 
 const App = () => {
+  const [shoppingCart, setShoppingCart] = useState([]);
+
+  const updateShoppingCart = (data) => {
+    data = data.split(" ").join("");
+    console.log(
+      "here",
+      shoppingCart.some((entry) => entry.item === data)
+    );
+
+    setShoppingCart([...shoppingCart, data]);
+  };
+
   return (
     <Router>
       <CssBaseline>
@@ -45,9 +57,25 @@ const App = () => {
             <Upperhero />
             <Main />
           </Route>
-          <Route exact path="/card" component={Layout} />
+          <Route
+            exact
+            path="/card"
+            render={(props) => (
+              <Layout
+                {...props}
+                updateShoppingCart={updateShoppingCart}
+                shoppingCart={shoppingCart}
+              />
+            )}
+          />
           <Route exact path="/shop" component={Products} />
-          <Route exact path="/shop/:id" component={ProductPage} />
+          <Route
+            exact
+            path="/shop/:id"
+            render={(props) => (
+              <ProductPage {...props} updateShoppingCart={updateShoppingCart} />
+            )}
+          />
           <Route exact path="/products/:category" component={TaggedProducts} />
         </Switch>
         <Grid

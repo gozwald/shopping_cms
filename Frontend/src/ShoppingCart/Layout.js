@@ -7,20 +7,19 @@ import CartBar from "./CartBar";
 import List from "@material-ui/core/List";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
-
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles((theme) => ({
   listRoot: {
     paddingRight: theme.spacing(3),
     paddingLeft: theme.spacing(3),
-    paddingTop: theme.spacing(0)
-  }
+    paddingTop: theme.spacing(0),
+  },
 }));
 
-const Layout = () => {
+const Layout = ({ updateShoppingCart, shoppingCart }) => {
   const classes = useStyle();
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState({});
   const price = cartItems
-    .map(item => item.fields.productPrice)
+    .map((item) => item.fields.productPrice)
     .reduce((acc, price) => acc + price, 0);
 
   // const productNames = cartItems.map(item => item.fields.productName);
@@ -32,20 +31,29 @@ const Layout = () => {
   //   item => item.fields.productPicture[0].fields.file.url
   // );
 
-  const getMyDefinedDataFromContentful = () => {
-    try {
-      Client.getEntries({ content_type: "product" }).then(res => {
-        const cartItems = res.items.filter(
-          item => Boolean(item.fields.isInShoppingCart) === true
-        );
-        setCartItems(cartItems);
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
+  // const getMyDefinedDataFromContentful = () => {
+  //   try {
+  //     Client.getEntries({ content_type: "product" }).then(res => {
+  //       const cartItems = res.items.filter(
+  //         item => Boolean(item.fields.isInShoppingCart) === true
+  //       );
+  //       setCartItems(cartItems);
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+  // useEffect(() => {
+  //   getMyDefinedDataFromContentful();
+  // }, []);
+
   useEffect(() => {
-    getMyDefinedDataFromContentful();
+    const items = {};
+    shoppingCart.map((item) => {
+      items[item] = (items[item] || 0) + 1;
+    });
+    console.log(items);
+    setCartItems(items);
   }, []);
 
   return (

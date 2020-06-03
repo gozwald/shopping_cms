@@ -10,7 +10,7 @@ import ProductRating from "./ProductRating";
 import ProductCard from "../Products/ProductCard";
 import Button from "@material-ui/core/Button";
 
-const ProductPage = props => {
+const ProductPage = (props) => {
   const [product, setProduct] = useState([]);
   const [productDesc, setProductDesc] = useState("");
   const [price, setPrice] = useState("");
@@ -37,8 +37,8 @@ const ProductPage = props => {
     const getProduct = () => {
       try {
         Client.getEntries({ content_type: "product" })
-          .then(res => res.items.filter(item => item.sys.id === id))
-          .then(res => {
+          .then((res) => res.items.filter((item) => item.sys.id === id))
+          .then((res) => {
             setProduct(res[0].fields);
             setPrice(res[0].fields.productPrice);
             setProductDesc(
@@ -52,6 +52,10 @@ const ProductPage = props => {
     };
     getProduct();
   }, []);
+
+  const handleClick = (data) => {
+    props.updateShoppingCart(data);
+  };
 
   return (
     <>
@@ -69,7 +73,11 @@ const ProductPage = props => {
               </Box>
               <Typography variant={"subtitle1"}>{productDesc}</Typography>
               <Box pt={3}>
-                <Button variant={"contained"} color={"secondary"}>
+                <Button
+                  variant={"contained"}
+                  color={"secondary"}
+                  onClick={() => handleClick(product.productName)}
+                >
                   Buy
                 </Button>
               </Box>
