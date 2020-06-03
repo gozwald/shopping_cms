@@ -60,7 +60,7 @@ export default function Main() {
             <Grid item xs={3}>
               <CardContent className={classes.leftDetails}>
                 <Typography noWrap variant="h4">
-                  choose a flavor
+                  Choose a flavor
                 </Typography>
               </CardContent>
             </Grid>

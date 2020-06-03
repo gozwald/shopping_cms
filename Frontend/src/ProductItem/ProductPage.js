@@ -10,68 +10,37 @@ import ProductRating from "./ProductRating";
 import ProductCard from "../Products/ProductCard";
 import Button from "@material-ui/core/Button";
 
-const ProductPage = (props) => {
-  const [product, setProduct] = useState([]);
-  const [productDesc, setProductDesc] = useState("");
-  const [price, setPrice] = useState("");
-  const [pic, setPic] = useState([]);
-  console.log(pic);
+const ProductPage = () => {
+  const [product, setProduct] = useState([undefined]);
 
-  console.log(product);
-  /*
-   *  * const tileData = [
-   *   {
-   *     img: image,
-   *     title: 'Image',
-   *     author: 'author',
-   *     cols: 2,
-   *   },
-   *   {
-   *     [etc...]
-   *   },
-   * ];*/
-
-  const { id } = useParams();
+  let { id } = useParams();
+  // id = 6;
 
   useEffect(() => {
-    const getProduct = () => {
-      try {
-        Client.getEntries({ content_type: "product" })
-          .then((res) => res.items.filter((item) => item.sys.id === id))
-          .then((res) => {
-            setProduct(res[0].fields);
-            setPrice(res[0].fields.productPrice);
-            setProductDesc(
-              res[0].fields.productDescription.content[0].content[0].value
-            );
-            setPic(res[0].fields.productPicture);
-          });
-      } catch (e) {
-        console.log(e);
-      }
+    const getProductById = () => {
+      fetch(`http://localhost:5000/product/${id}`, { method: "GET" })
+        .then((response) => response.json())
+        .then((res) => setProduct(res));
     };
-    getProduct();
-  }, []);
-
-  const handleClick = (data) => {
-    props.updateShoppingCart(data);
-  };
-
+    getProductById();
+  }, [id]);
   return (
     <>
       <Box p={2}>
         <Grid container spacing={2} alignContent={"center"}>
           <Grid item xs={7}>
-            <ProductPictures images={pic} />
+            <ProductPictures picture={product.product_picture} />
           </Grid>
           <Grid item xs={4}>
             <Box pl={2}>
-              <Typography variant={"h3"}>{product.productName}</Typography>
+              <Typography variant={"h3"}>{product.product_name}</Typography>
               <Box py={2}>
                 <ProductRating rating={4} />
-                <Typography variant={"h5"}>${price}</Typography>
+                <Typography variant={"h5"}>${product.product_price}</Typography>
               </Box>
-              <Typography variant={"subtitle1"}>{productDesc}</Typography>
+              <Typography variant={"subtitle1"}>
+                {product.product_description}
+              </Typography>
               <Box pt={3}>
                 <Button
                   variant={"contained"}

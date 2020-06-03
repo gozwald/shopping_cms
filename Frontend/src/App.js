@@ -1,39 +1,17 @@
 import React, { useState, useEffect } from "react";
-import Client from "./Contentful";
 import { CssBaseline, Grid } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Main from "./StartingPage/Main";
 import ProductPage from "./ProductItem/ProductPage";
 import Layout from "./ShoppingCart/Layout";
+import Signup from "./blog/signup";
+import Login from "./blog/login";
+import Dashboard from "./blog/dashboard";
 import { Toolbar } from "@material-ui/core";
 import Products from "./Products/Products";
 import Logonav from "./StartingPage/logonav";
 import Upperhero from "./StartingPage/upperhero";
-// <<<<<<< productsByTag
 import TaggedProducts from "./TaggedProducts/TaggedProducts";
-
-/*
-
-
-// =======
-//           <Route exact path="/" component={props => <Main {...props} />} />
-//           <Route
-//             exact
-//             path="/card"
-//             component={props => <Layout {...props} />}
-//           />
-//           <Route
-//             exact
-//             path="/shop"
-//             component={props => <Products {...props} />}
-//           />
-//           <Route
-//             exact
-//             path="/shop/:id"
-//             component={props => <ProductPage {...props} />}
-//           />
-// >>>>>>> master
-* */
 
 const App = () => {
   const [shoppingCart, setShoppingCart] = useState([]);
@@ -68,6 +46,9 @@ const App = () => {
               />
             )}
           />
+          <Route exact path="/blog/dashboard" component={Dashboard} />
+          <Route exact path="/blog/login" component={Login} />
+          <Route exact path="/blog/signup" component={Signup} />
           <Route exact path="/shop" component={Products} />
           <Route
             exact
@@ -84,7 +65,7 @@ const App = () => {
           xs={12}
           justify="center"
         >
-          <Toolbar style={{ fontSize: "20px", fontFamily: "Roboto" }}></Toolbar>
+          <Toolbar style={{ fontSize: "20px", fontFamily: "Roboto" }} />
         </Grid>
       </CssBaseline>
     </Router>
