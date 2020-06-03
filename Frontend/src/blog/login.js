@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { Router, Route } from "react-router-dom";
 import { createBrowserHistory } from "history";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -14,7 +13,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Cookies from "js-cookie";
 
-const history = createBrowserHistory();
+// const history = createBrowserHistory();
 
 const useStyles = makeStyles((theme) => ({
   paper: {

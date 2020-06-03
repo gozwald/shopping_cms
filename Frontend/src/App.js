@@ -1,5 +1,4 @@
 import React from "react";
-// import Client from "./Contentful";
 import { CssBaseline, Grid } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Main from "./StartingPage/Main";
@@ -12,31 +11,7 @@ import { Toolbar } from "@material-ui/core";
 import Products from "./Products/Products";
 import Logonav from "./StartingPage/logonav";
 import Upperhero from "./StartingPage/upperhero";
-// <<<<<<< productsByTag
 import TaggedProducts from "./TaggedProducts/TaggedProducts";
-
-/*
-
-
-// =======
-//           <Route exact path="/" component={props => <Main {...props} />} />
-//           <Route
-//             exact
-//             path="/card"
-//             component={props => <Layout {...props} />}
-//           />
-//           <Route
-//             exact
-//             path="/shop"
-//             component={props => <Products {...props} />}
-//           />
-//           <Route
-//             exact
-//             path="/shop/:id"
-//             component={props => <ProductPage {...props} />}
-//           />
-// >>>>>>> master
-* */
 
 const App = () => {
   return (
@@ -62,7 +37,7 @@ const App = () => {
           xs={12}
           justify="center"
         >
-          <Toolbar style={{ fontSize: "20px", fontFamily: "Roboto" }}></Toolbar>
+          <Toolbar style={{ fontSize: "20px", fontFamily: "Roboto" }} />
         </Grid>
       </CssBaseline>
     </Router>
