@@ -101,7 +101,7 @@ function App() {
         <Lovers />
         <Thinkers />
         <Tasters />
-        <Costumize />
+        <Customize />
       </Primary>
     </Wrap>
   );
