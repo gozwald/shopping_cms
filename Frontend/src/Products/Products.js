@@ -13,33 +13,35 @@ const Products = (props) => {
 
   const [products, setProducts] = useState([]);
 
-  const getProducts = () => {
-    try {
-      Client.getEntries({ content_type: "product" }).then((res) => {
-        setProducts(res.items);
-        // console.log(res.items[0].fields.productPicture[0].fields.file.url.substring(2))
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-  useEffect(() => {
-    getProducts();
-  }, []);
+  // const getProducts = () => {
+  //   try {
+  //     Client.getEntries({ content_type: "product" }).then((res) => {
+  //       setProducts(res.items);
+  //       // console.log(res.items[0].fields.productPicture[0].fields.file.url.substring(2))
+  //     });
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
 
+  const getAllProducts = () => {
+    fetch(`http://localhost:5000/products`, { method: "GET" })
+      .then((response) => response.json())
+      .then((res) => setProducts(res));
+  };
+
+  useEffect(() => {
+    getAllProducts();
+  }, []);
   const productCarts = products.map((item) => {
-    // console.log(item.fields.productPicture[0].fields.file.url.substring(2));
     return (
       <ProductCard
-        key={item.sys.id}
-        img={`http://${item.fields.productPicture[1].fields.file.url.substring(
-          2
-        )}`}
-        // image={item.fields.productPicture[0].fields.file.url.substring(2)}
-        productInfo={item.fields.productDescription.content[0].content[0].value}
-        productName={item.fields.productName}
-        pid={item.sys.id}
-        tag={item.fields.productCategory.fields.title}
+        key={item.product_id}
+        img={item.product_picture}
+        productInfo={item.product_description}
+        productName={item.product_name}
+        pid={item.product_id}
+        tag={item.product_category}
       />
     );
   });
@@ -52,7 +54,9 @@ const Products = (props) => {
   return (
     <>
       <Box pt={3} px={6}>
-        {products ? productItems : <CircularProgress />}
+        <Grid container justify="space-evenly">
+          {products ? productItems : <CircularProgress />}
+        </Grid>
       </Box>
     </>
   );
