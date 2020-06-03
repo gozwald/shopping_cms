@@ -12,6 +12,7 @@ import Products from "./Products/Products";
 import Logonav from "./StartingPage/logonav";
 import Upperhero from "./StartingPage/upperhero";
 import TaggedProducts from "./TaggedProducts/TaggedProducts";
+import Blog from "./blog/frontend/Blog";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
           <Route exact path="/blog/dashboard" component={Dashboard} />
           <Route exact path="/blog/login" component={Login} />
           <Route exact path="/blog/signup" component={Signup} />
+          <Route exact path="/blog" component={Blog} />
           <Route exact path="/card" component={Layout} />
           <Route exact path="/shop" component={Products} />
           <Route exact path="/shop/:id" component={ProductPage} />

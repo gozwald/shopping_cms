@@ -94,7 +94,7 @@ const Customize = () => (
   </Block>
 );
 
-function App() {
+function Blog() {
   return (
     <Wrap>
       <Primary>
@@ -107,4 +107,4 @@ function App() {
   );
 }
 
-export default App;
+export default Blog;
