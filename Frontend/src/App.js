@@ -1,10 +1,13 @@
 import React from "react";
-import Client from "./Contentful";
+// import Client from "./Contentful";
 import { CssBaseline, Grid } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Main from "./StartingPage/Main";
 import ProductPage from "./ProductItem/ProductPage";
 import Layout from "./ShoppingCart/Layout";
+import Signup from "./blog/signup";
+import Login from "./blog/login";
+import Dashboard from "./blog/dashboard";
 import { Toolbar } from "@material-ui/core";
 import Products from "./Products/Products";
 import Logonav from "./StartingPage/logonav";
@@ -45,6 +48,9 @@ const App = () => {
             <Upperhero />
             <Main />
           </Route>
+          <Route exact path="/blog/dashboard" component={Dashboard} />
+          <Route exact path="/blog/login" component={Login} />
+          <Route exact path="/blog/signup" component={Signup} />
           <Route exact path="/card" component={Layout} />
           <Route exact path="/shop" component={Products} />
           <Route exact path="/shop/:id" component={ProductPage} />
