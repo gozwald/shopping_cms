@@ -164,4 +164,10 @@ app.get("/product/:id", (req, res) => {
     .catch((e) => console.log(e));
 });
 
+app.get("/blog/create", (req, res) => {
+  db.query("SELECT content FROM blog_test WHERE blogid = $1", [1])
+    .then((blog) => res.json(blog.rows[0].content))
+    .catch((e) => console.log(e));
+});
+
 app.listen(5000, () => console.log("Server is running on port: 5000"));

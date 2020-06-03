@@ -16,6 +16,9 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "slate": "^0.58.1",
+    "slate-history": "^0.58.1",
+    "slate-react": "^0.58.2",
     "webfontloader": "1.6.28"
   },
   "scripts": {
@@ -40,7 +43,9 @@
     ]
   },
   "devDependencies": {
+    "emotion": "^10.0.27",
     "husky": "^4.2.5",
+    "is-hotkey": "^0.1.6",
     "prettier": "2.0.5",
     "pretty-quick": "^2.0.1"
   },
