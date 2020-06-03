@@ -15,29 +15,6 @@ import Upperhero from "./StartingPage/upperhero";
 // <<<<<<< productsByTag
 import TaggedProducts from "./TaggedProducts/TaggedProducts";
 
-/*
-
-
-// =======
-//           <Route exact path="/" component={props => <Main {...props} />} />
-//           <Route
-//             exact
-//             path="/card"
-//             component={props => <Layout {...props} />}
-//           />
-//           <Route
-//             exact
-//             path="/shop"
-//             component={props => <Products {...props} />}
-//           />
-//           <Route
-//             exact
-//             path="/shop/:id"
-//             component={props => <ProductPage {...props} />}
-//           />
-// >>>>>>> master
-* */
-
 const App = () => {
   return (
     <Router>
@@ -62,7 +39,7 @@ const App = () => {
           xs={12}
           justify="center"
         >
-          <Toolbar style={{ fontSize: "20px", fontFamily: "Roboto" }}></Toolbar>
+          <Toolbar style={{ fontSize: "20px", fontFamily: "Roboto" }} />
         </Grid>
       </CssBaseline>
     </Router>
