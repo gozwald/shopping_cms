@@ -5,6 +5,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import Cookies from "js-cookie";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -58,7 +59,7 @@ export default function Dashboard() {
   useEffect(() => {
     fetch("http://localhost:5000/blog/dashboard", {
       method: "GET",
-      credentials: "include",
+      headers: { token: Cookies.get("token") },
     })
       .then((response) => response.json())
       .then((data) => console.log(data));

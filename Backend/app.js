@@ -12,8 +12,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const verifyToken = (req, res, next) => {
-  console.log(req.cookies.token);
-  if (req.cookies.token !== "undefined") {
+  if (req.headers.token !== "undefined") {
     next();
   } else {
     res.sendStatus(403);
@@ -21,7 +20,7 @@ const verifyToken = (req, res, next) => {
 };
 
 app.get("/blog/dashboard", verifyToken, (req, res) => {
-  jwt.verify(req.cookies.token, "secretkey", (err, authData) => {
+  jwt.verify(req.headers.token, "secretkey", (err, authData) => {
     if (err) {
       res.sendStatus(403);
     } else {
