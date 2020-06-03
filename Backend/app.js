@@ -6,18 +6,32 @@ const cors = require("cors");
 const jwt = require("jsonwebtoken");
 const cookieParser = require("cookie-parser");
 
+app.use(cors());
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
 const verifyToken = (req, res, next) => {
+  console.log(req.cookies.token);
   if (req.cookies.token !== "undefined") {
     next();
   } else {
     res.sendStatus(403);
   }
 };
+
+app.get("/blog/dashboard", verifyToken, (req, res) => {
+  jwt.verify(req.cookies.token, "secretkey", (err, authData) => {
+    if (err) {
+      res.sendStatus(403);
+    } else {
+      db.query(
+        "SELECT post_id, author_name, author_username, author_avatar, author_description, post_date, post_type, post_title, post_content FROM authors JOIN posts ON author_id=post_author_id WHERE author_username = $1",
+        [authData]
+      ).then((e) => res.json(e.rows));
+    }
+  });
+});
 
 app.get("/blog/getall", (req, res) => {
   db.query(
@@ -36,27 +50,13 @@ app.post("/blog/login", (req, res) => {
     .then((e) => {
       if (e.rows[0].author_password === author_password) {
         jwt.sign(author_username, "secretkey", (err, token) => {
-          res.cookie("token", token);
-          res.sendStatus(200);
+          res.json(token);
         });
       } else {
         res.sendStatus(403);
       }
     })
     .catch((error) => console.log(error));
-});
-
-app.get("/blog/dashboard", verifyToken, (req, res) => {
-  jwt.verify(req.cookies.token, "secretkey", (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      db.query(
-        "SELECT post_id, author_name, author_username, author_avatar, author_description, post_date, post_type, post_title, post_content FROM authors JOIN posts ON author_id=post_author_id WHERE author_username = $1",
-        [authData]
-      ).then((e) => res.json(e.rows));
-    }
-  });
 });
 
 app.post("/blog/addauthor", (req, res) => {

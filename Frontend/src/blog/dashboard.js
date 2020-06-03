@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
@@ -55,6 +55,15 @@ export default function Dashboard() {
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 
+  useEffect(() => {
+    fetch("http://localhost:5000/blog/dashboard", {
+      method: "GET",
+      credentials: "include",
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -69,35 +78,19 @@ export default function Dashboard() {
         aria-label="Vertical tabs example"
         className={classes.tabs}
       >
-        <Tab label="Edit Profile" {...a11yProps(0)} />
-        <Tab label="My Blog Posts" {...a11yProps(1)} />
+        <Tab label="My Blog Posts" {...a11yProps(0)} />
+        <Tab label="Edit Profile" {...a11yProps(1)} />
         <Tab label="Add Post" {...a11yProps(2)} />
-        {/* <Tab label="Item Four" {...a11yProps(3)} />
-        <Tab label="Item Five" {...a11yProps(4)} />
-        <Tab label="Item Six" {...a11yProps(5)} />
-        <Tab label="Item Seven" {...a11yProps(6)} /> */}
       </Tabs>
       <TabPanel value={value} index={0}>
-        My Profile
+        My Posts
       </TabPanel>
       <TabPanel value={value} index={1}>
-        My Posts
+        My Profile
       </TabPanel>
       <TabPanel value={value} index={2}>
         Add Post
       </TabPanel>
-      {/* <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel> */}
     </div>
   );
 }
