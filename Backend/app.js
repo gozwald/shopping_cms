@@ -46,7 +46,7 @@ app.post("/blog/login", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-app.post("/blog/authoredit", verifyToken, (req, res) => {
+app.get("/blog/dashboard", verifyToken, (req, res) => {
   jwt.verify(req.cookies.token, "secretkey", (err, authData) => {
     if (err) {
       res.sendStatus(403);
