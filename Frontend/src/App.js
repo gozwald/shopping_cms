@@ -1,5 +1,4 @@
 import React from "react";
-// import Client from "./Contentful";
 import { CssBaseline, Grid } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Main from "./StartingPage/Main";
@@ -12,7 +11,6 @@ import { Toolbar } from "@material-ui/core";
 import Products from "./Products/Products";
 import Logonav from "./StartingPage/logonav";
 import Upperhero from "./StartingPage/upperhero";
-// <<<<<<< productsByTag
 import TaggedProducts from "./TaggedProducts/TaggedProducts";
 
 const App = () => {
