@@ -89,7 +89,7 @@ export default function Dashboard() {
         className={classes.tabs}
       >
         <Tab label="My Blog Posts" {...a11yProps(0)} />
-        <Tab label="Edit Post" {...a11yProps(1)} />
+        <Tab label="Add Post" {...a11yProps(1)} />
       </Tabs>
       <Grid item xs={12}>
         <TabPanel value={value} index={0}>
