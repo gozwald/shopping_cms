@@ -3,9 +3,10 @@ import isHotkey from "is-hotkey";
 import { Editable, withReact, useSlate, Slate } from "slate-react";
 import { Editor, Transforms, createEditor } from "slate";
 import { withHistory } from "slate-history";
-import DeleteIcon from "@material-ui/icons/Delete";
+import axios from "axios";
 
 import { Button, Icon, Toolbar } from "./BlogUtil";
+import makeStyles from "@material-ui/core/styles/makeStyles";
 
 const HOTKEYS = {
   "mod+b": "bold",
@@ -16,18 +17,31 @@ const HOTKEYS = {
 
 const LIST_TYPES = ["numbered-list", "bulleted-list"];
 
-const RichTextExample = () => {
+const BlogEditor = () => {
   const [value, setValue] = useState(initialValue);
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
   const fetchBlog = () => {
-    fetch("http://localhost:5000/blog/create", {
+    fetch("http://localhost:5000/blog/fetchById", {
       method: "GET",
     })
       .then((res) => res.json())
       .then((res) => setValue(res));
+  };
+
+  const savePost = () => {
+    axios
+      .post("http://localhost:5000/blog/save", {
+        blogContent: value,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -37,7 +51,6 @@ const RichTextExample = () => {
   return (
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
       <Toolbar>
-        <DeleteIcon />
         <MarkButton format="bold" icon="format_bold" />
         <MarkButton format="italic" icon="format_italic" />
         <MarkButton format="underline" icon="format_underlined" />
@@ -47,6 +60,7 @@ const RichTextExample = () => {
         <BlockButton format="block-quote" icon="format_quote" />
         <BlockButton format="numbered-list" icon="format_list_numbered" />
         <BlockButton format="bulleted-list" icon="format_list_bulleted" />
+        <Button onClick={() => savePost()}>Save</Button>
       </Toolbar>
       <Editable
         renderElement={renderElement}
@@ -182,16 +196,8 @@ const MarkButton = ({ format, icon }) => {
 const initialValue = [
   {
     type: "paragraph",
-    children: [
-      { text: "This is InitDAtaaaaaaaaaaaa " },
-      { text: "rich", bold: true },
-      { text: " text, " },
-      { text: "much", italic: true },
-      { text: " better than a " },
-      { text: "<textarea>", code: true },
-      { text: "!" },
-    ],
+    children: [{ text: "Loading..." }],
   },
 ];
 
-export default RichTextExample;
+export default BlogEditor;

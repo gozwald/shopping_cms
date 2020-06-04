@@ -164,10 +164,18 @@ app.get("/product/:id", (req, res) => {
     .catch((e) => console.log(e));
 });
 
-app.get("/blog/create", (req, res) => {
-  db.query("SELECT content FROM blog_test WHERE blogid = $1", [1])
+app.get("/blog/fetchById", (req, res) => {
+  db.query("SELECT content FROM blog_test WHERE blogid = $1", [6])
     .then((blog) => res.json(blog.rows[0].content))
     .catch((e) => console.log(e));
+});
+
+app.post("/blog/save", (req, res) => {
+  const blogContent = req.body.blogContent;
+  db.query("UPDATE blog_test SET content = $1 WHERE blogid = $2", [
+    JSON.stringify(blogContent),
+    6,
+  ]).catch((e) => console.log(e));
 });
 
 app.listen(5000, () => console.log("Server is running on port: 5000"));

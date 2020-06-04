@@ -13,6 +13,7 @@ import Logonav from "./StartingPage/logonav";
 import Upperhero from "./StartingPage/upperhero";
 import TaggedProducts from "./TaggedProducts/TaggedProducts";
 import BlogEditor from "./blog/BlogEditor";
+import BlogEditLayout from "./blog/BlogEditLayout";
 
 const App = () => {
   return (
@@ -25,7 +26,7 @@ const App = () => {
             <Main />
           </Route>
           <Route exact path="/blog/dashboard" component={Dashboard} />
-          <Route exact path="/blog/create" component={BlogEditor} />
+          <Route exact path="/blog/update" component={BlogEditLayout} />
           <Route exact path="/blog/login" component={Login} />
           <Route exact path="/blog/signup" component={Signup} />
           <Route exact path="/card" component={Layout} />
