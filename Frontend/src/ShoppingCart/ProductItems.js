@@ -1,19 +1,21 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import List from "@material-ui/core/List";
 import ProductItem from "./ProductItem";
 
 import { Link } from "react-router-dom";
 
-const ProductItems = props => {
-  // console.log(props.fields[0].productPicture.fields.file.url.substring(2));
-  const items = props.cartItems.map(item => (
+const ProductItems = ({ cartItems, updateShoppingCart }) => {
+  const items = cartItems.map(({ count, properties }) => (
     <ProductItem
-      key={item.sys.id}
-      productID={item.sys.id}
-      productName={item.fields.productName}
-      priceList={item.fields.productPrice}
-      // category={item.fields.productCategory.fields.title}
-      image={item.fields.productPicture[0].fields.file.url}
+      key={properties.product_id}
+      productID={properties.product_id}
+      productName={properties.product_name}
+      priceList={properties.product_price}
+      count={count}
+      total={count * properties.product_price}
+      category={properties.product_category}
+      image={properties.product_picture}
+      updateShoppingCart={updateShoppingCart}
     />
   ));
 

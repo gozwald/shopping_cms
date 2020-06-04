@@ -7,8 +7,9 @@ import ShoppingCartTwoToneIcon from "@material-ui/icons/ShoppingCartTwoTone";
 import { Toolbar } from "@material-ui/core";
 import "./Font.css";
 import { Link } from "react-router-dom";
+import Badge from "@material-ui/core/Badge";
 
-export default function Logonav() {
+export default function Logonav({ numItems }) {
   return (
     <>
       <Grid container item xs={12} justify="center">
@@ -69,7 +70,9 @@ export default function Logonav() {
               marginLeft: "17vw",
             }}
           >
-            <ShoppingCartTwoToneIcon />
+            <Badge badgeContent={numItems} color="secondary">
+              <ShoppingCartTwoToneIcon />
+            </Badge>
           </Link>
         </Toolbar>
       </Grid>

@@ -52,18 +52,14 @@ export default function ProductCard(props) {
               title="Contemplative Reptile"
             />
             <CardContent>
-              <Typography color="textPrimary">75.45 €</Typography>
+              <Typography color="textPrimary">{props.price} €</Typography>
               <Typography gutterBottom variant="subtitle1">
                 {props.productName}
               </Typography>
+
               <Typography variant="body2" color="textSecondary" component="p">
-                {props.price}
-              </Typography>{" "}
-              <Typography variant="body2" color="textSecondary" component="p">
-                {/*Category: {props.price}*/}
-                Thinkers
+                {props.tag[0].toUpperCase() + props.tag.slice(1)}
               </Typography>
-              {/*<TagBatch tag={props.tag} size="small" />*/}
             </CardContent>
           </CardActionArea>
         </Link>

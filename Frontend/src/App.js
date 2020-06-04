@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { CssBaseline, Grid } from "@material-ui/core";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Main from "./StartingPage/Main";
@@ -15,22 +15,55 @@ import TaggedProducts from "./TaggedProducts/TaggedProducts";
 import Blog from "./blog/frontend/Blog";
 
 const App = () => {
+  const [shoppingCart, setShoppingCart] = useState([]);
+
+  const updateShoppingCart = (data, action) => {
+    if (action === "+") setShoppingCart([...shoppingCart, data]);
+    else {
+      setShoppingCart((prev) => {
+        if (prev.length > 1) {
+          const index = prev.indexOf(data);
+          const array = prev.slice();
+          array.splice(index, 1);
+          return array;
+        }
+        return [];
+      });
+    }
+  };
+
   return (
     <Router>
       <CssBaseline>
-        <Logonav />
+        <Logonav numItems={shoppingCart.length} />
         <Switch>
           <Route exact path="/">
             <Upperhero />
             <Main />
           </Route>
+          <Route
+            exact
+            path="/card"
+            render={(props) => (
+              <Layout
+                {...props}
+                updateShoppingCart={updateShoppingCart}
+                shoppingCart={shoppingCart}
+              />
+            )}
+          />
           <Route exact path="/blog/dashboard" component={Dashboard} />
           <Route exact path="/blog/login" component={Login} />
           <Route exact path="/blog/signup" component={Signup} />
           <Route exact path="/blog" component={Blog} />
-          <Route exact path="/card" component={Layout} />
           <Route exact path="/shop" component={Products} />
-          <Route exact path="/shop/:id" component={ProductPage} />
+          <Route
+            exact
+            path="/shop/:id"
+            render={(props) => (
+              <ProductPage {...props} updateShoppingCart={updateShoppingCart} />
+            )}
+          />
           <Route exact path="/products/:category" component={TaggedProducts} />
         </Switch>
         <Grid
