@@ -41,7 +41,8 @@ const Products = (props) => {
         productInfo={item.product_description}
         productName={item.product_name}
         pid={item.product_id}
-        tag={item.product_category}
+        tag={item.category}
+        price={item.product_price}
       />
     );
   });
