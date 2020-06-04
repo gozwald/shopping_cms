@@ -165,16 +165,28 @@ app.get("/product/:id", (req, res) => {
 });
 
 app.get("/blog/fetchById", (req, res) => {
-  db.query("SELECT content FROM blog_test WHERE blogid = $1", [6])
-    .then((blog) => res.json(blog.rows[0].content))
+  db.query("SELECT * FROM posts WHERE post_id = $1", [12])
+    .then((blog) => res.json(blog.rows[0]))
     .catch((e) => console.log(e));
 });
+// .then((blog) => res.json(blog.rows[0].content))
 
 app.post("/blog/save", (req, res) => {
   const blogContent = req.body.blogContent;
   db.query("UPDATE blog_test SET content = $1 WHERE blogid = $2", [
     JSON.stringify(blogContent),
     6,
+  ]).catch((e) => console.log(e));
+});
+
+app.post("/blog/createBlog", (req, res) => {
+  const { blogContent, author } = req.body;
+  const blogJson = JSON.stringify(blogContent);
+  const authorJson = JSON.stringify(author);
+
+  db.query("INSERT INTO blog_test (content, author) VALUES ($1, $2)", [
+    blogJson,
+    author,
   ]).catch((e) => console.log(e));
 });
 

@@ -4,8 +4,6 @@ import { Editable, withReact, useSlate, Slate } from "slate-react";
 import { Editor, Transforms, createEditor } from "slate";
 import { withHistory } from "slate-history";
 import axios from "axios";
-import escapeHtml from "escape-html";
-import { Node, Text } from "slate";
 
 import { Button, Icon, Toolbar } from "./BlogUtil";
 
@@ -18,45 +16,26 @@ const HOTKEYS = {
 
 const LIST_TYPES = ["numbered-list", "bulleted-list"];
 
-const BlogEditor = () => {
+const CreateBlog = () => {
   const [value, setValue] = useState(initialValue);
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
-  const serialize = (node) => {
-    if (Text.isText(node)) {
-      return escapeHtml(node.text);
-    }
+  // const fetchBlog = () => {
+  //   fetch("http://localhost:5000/blog/fetchById", {
+  //     method: "GET",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((res) => setValue(res));
+  // };
 
-    const children = node.children.map((n) => serialize(n)).join("");
-
-    switch (node.type) {
-      case "quote":
-        return `<blockquote><p>${children}</p></blockquote>`;
-      case "paragraph":
-        return `<p>${children}</p>`;
-      case "link":
-        return `<a href="${escapeHtml(node.url)}">${children}</a>`;
-      default:
-        return children;
-    }
-  };
-
-  console.log(serialize(value));
-
-  const fetchBlog = () => {
-    fetch("http://localhost:5000/blog/fetchById", {
-      method: "GET",
-    })
-      .then((res) => res.json())
-      .then((res) => setValue(res.post_content));
-  };
-
-  const savePost = () => {
+  // todo integrate author
+  const createPost = () => {
     axios
-      .post("http://localhost:5000/blog/save", {
+      .post("http://localhost:5000/blog/createBlog", {
         blogContent: value,
+        author: "DummyDude",
       })
       .then(function (response) {
         console.log(response);
@@ -66,9 +45,9 @@ const BlogEditor = () => {
       });
   };
 
-  useEffect(() => {
-    fetchBlog();
-  }, []);
+  // useEffect(() => {
+  //   fetchBlog();
+  // }, []);
 
   return (
     <Slate editor={editor} value={value} onChange={(value) => setValue(value)}>
@@ -82,7 +61,7 @@ const BlogEditor = () => {
         <BlockButton format="block-quote" icon="format_quote" />
         <BlockButton format="numbered-list" icon="format_list_numbered" />
         <BlockButton format="bulleted-list" icon="format_list_bulleted" />
-        <Button onClick={() => savePost()}>Save</Button>
+        <Button onClick={() => createPost()}>Create</Button>
       </Toolbar>
       <Editable
         renderElement={renderElement}
@@ -218,8 +197,8 @@ const MarkButton = ({ format, icon }) => {
 const initialValue = [
   {
     type: "paragraph",
-    children: [{ text: "Loading..." }],
+    children: [{ text: "Create a Blog" }],
   },
 ];
 
-export default BlogEditor;
+export default CreateBlog;
