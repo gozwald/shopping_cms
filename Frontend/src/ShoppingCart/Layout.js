@@ -7,53 +7,49 @@ import CartBar from "./CartBar";
 import List from "@material-ui/core/List";
 import makeStyles from "@material-ui/core/styles/makeStyles";
 
-
-const useStyle = makeStyles(theme => ({
+const useStyle = makeStyles((theme) => ({
   listRoot: {
     paddingRight: theme.spacing(3),
     paddingLeft: theme.spacing(3),
-    paddingTop: theme.spacing(0)
-  }
+    paddingTop: theme.spacing(0),
+  },
 }));
 
-const Layout = () => {
+const Layout = ({ updateShoppingCart, shoppingCart }) => {
   const classes = useStyle();
   const [cartItems, setCartItems] = useState([]);
-  const price = cartItems
-    .map(item => item.fields.productPrice)
-    .reduce((acc, price) => acc + price, 0);
+  const [price, setPrice] = useState(0);
 
-  // const productNames = cartItems.map(item => item.fields.productName);
-  // const priceList = cartItems.map(item => item.fields.productPrice);
-  // const category = cartItems.map(
-  //   item => item.fields.productCategory.fields.title
-  // );
-  // const images = cartItems.map(
-  //   item => item.fields.productPicture[0].fields.file.url
-  // );
-
-  const getMyDefinedDataFromContentful = () => {
-    try {
-      Client.getEntries({ content_type: "product" }).then(res => {
-        const cartItems = res.items.filter(
-          item => Boolean(item.fields.isInShoppingCart) === true
-        );
-        setCartItems(cartItems);
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  };
   useEffect(() => {
-    getMyDefinedDataFromContentful();
-  }, []);
+    void (async function fetcher() {
+      const itemsFetch = await fetch(`http://localhost:5000/products/`);
+      const response = await itemsFetch.json();
+      const items = {};
+      let total = 0;
+
+      shoppingCart.map((id) => {
+        items[id] = items[id] || {};
+        items[id].count = (items[id].count || 0) + 1;
+        items[id].properties = response.filter(
+          (entry) => entry.product_id === id
+        )[0];
+        total += items[id].properties.product_price;
+      });
+
+      setCartItems(Object.values(items));
+      setPrice(total.toFixed(2));
+    })();
+  }, [shoppingCart]);
 
   return (
     <Grid container border={1}>
       <Grid container item xs={12}>
         <Grid item xs={9}>
           <List className={classes.listRoot} dense>
-            <ProductItems cartItems={cartItems} />
+            <ProductItems
+              cartItems={cartItems}
+              updateShoppingCart={updateShoppingCart}
+            />
           </List>
         </Grid>
         <Grid item xs={3}>

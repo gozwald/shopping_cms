@@ -13,23 +13,24 @@ app.use(express.urlencoded({ extended: true }));
 
 const verifyToken = (req, res, next) => {
   if (req.headers.token !== "undefined") {
-    next();
+    jwt.verify(req.headers.token, "secretkey", (err, authData) => {
+      if (err) {
+        res.sendStatus(403);
+      } else {
+        req.decoded = authData;
+        next();
+      }
+    });
   } else {
     res.sendStatus(403);
   }
 };
 
 app.get("/blog/dashboard", verifyToken, (req, res) => {
-  jwt.verify(req.headers.token, "secretkey", (err, authData) => {
-    if (err) {
-      res.sendStatus(403);
-    } else {
-      db.query(
-        "SELECT post_id, author_name, author_username, author_avatar, author_description, post_date, post_type, post_title, post_content FROM authors JOIN posts ON author_id=post_author_id WHERE author_username = $1",
-        [authData]
-      ).then((e) => res.json(e.rows));
-    }
-  });
+  db.query(
+    "SELECT post_id, author_name, author_username, author_avatar, author_description, post_date, post_type, post_title, post_content FROM authors JOIN posts ON author_id=post_author_id WHERE author_username = $1",
+    [req.decoded]
+  ).then((e) => res.json(e.rows));
 });
 
 app.get("/blog/getall", (req, res) => {
@@ -49,7 +50,7 @@ app.post("/blog/login", (req, res) => {
     .then((e) => {
       if (e.rows[0].author_password === author_password) {
         jwt.sign(author_username, "secretkey", (err, token) => {
-          res.json(token);
+          res.status(200).json(token);
         });
       } else {
         res.sendStatus(403);
@@ -128,14 +129,14 @@ app.get("/products", (req, res) => {
   query.num
     ? db
         .query(
-          "SELECT product_id, product_description, product_name,product_picture, category FROM product JOIN category ON product_category = category_id LIMIT $1",
+          "SELECT product_id, product_description, product_name,product_picture, product_price, category FROM product JOIN category ON product_category = category_id LIMIT $1",
           [limit]
         )
         .then((data) => res.json(data.rows))
         .catch(console.log)
     : db
         .query(
-          "SELECT product_id, product_description, product_name, product_picture, category FROM product JOIN category ON product_category = category_id"
+          "SELECT product_id, product_description, product_name, product_picture,product_price, category FROM product JOIN category ON product_category = category_id"
         )
         .then((data) => res.json(data.rows))
         .catch(console.log);

@@ -1,38 +1,35 @@
 import React, { useEffect, useState } from "react";
-import CartBar from "../ShoppingCart/CartBar";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
-import Client from "../Contentful";
 import { CircularProgress } from "@material-ui/core";
 import ProductCard from "./ProductCard";
-import ProductItem from "../ShoppingCart/ProductItem";
+import Fab from "@material-ui/core/Fab";
 
-const Products = (props) => {
-  // const { match } = useRouteMatch();
-  // const { productId } = useParams();
-
+const Products = () => {
   const [products, setProducts] = useState([]);
+  const [num, setNum] = useState(1);
+  const [buttonStatus, setButtonStatus] = useState(0);
+  const loadingItems = 5;
 
-  // const getProducts = () => {
-  //   try {
-  //     Client.getEntries({ content_type: "product" }).then((res) => {
-  //       setProducts(res.items);
-  //       // console.log(res.items[0].fields.productPicture[0].fields.file.url.substring(2))
-  //     });
-  //   } catch (e) {
-  //     console.log(e);
-  //   }
-  // };
-
-  const getAllProducts = () => {
-    fetch(`http://localhost:5000/products`, { method: "GET" })
+  const getAllProducts = (num) => {
+    fetch(`http://localhost:5000/products?num=${num * loadingItems}`, {
+      method: "GET",
+    })
       .then((response) => response.json())
-      .then((res) => setProducts(res));
+      .then((res) => {
+        setProducts(res);
+        res.length % loadingItems !== 0 && setButtonStatus(1);
+      });
   };
 
   useEffect(() => {
-    getAllProducts();
-  }, []);
+    getAllProducts(num);
+  }, [num]);
+
+  const handleClick = () => {
+    setNum((prev) => (prev += 1));
+  };
+
   const productCarts = products.map((item) => {
     return (
       <ProductCard
@@ -41,7 +38,8 @@ const Products = (props) => {
         productInfo={item.product_description}
         productName={item.product_name}
         pid={item.product_id}
-        tag={item.product_category}
+        tag={item.category}
+        price={item.product_price}
       />
     );
   });
@@ -58,6 +56,11 @@ const Products = (props) => {
           {products ? productItems : <CircularProgress />}
         </Grid>
       </Box>
+      <div style={{ textAlign: "center", margin: "1%" }}>
+        <Fab variant="extended" onClick={handleClick} disabled={buttonStatus}>
+          Show more
+        </Fab>
+      </div>
     </>
   );
 };
