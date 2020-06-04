@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import { createBrowserHistory } from "history";
+import { createBrowserHistory } from "history";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -11,7 +11,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
-// import DialogTitle from "@material-ui/core/DialogTitle";
+import Cookies from "js-cookie";
 
 // const history = createBrowserHistory();
 
@@ -56,11 +56,8 @@ export default function Login() {
         author_password: state.password,
       }),
     })
-      .then((response) => console.log(response))
-      .then((data) => {
-        console.log("Success:", data);
-        // history.push("/login");
-      })
+      .then((response) => response.json())
+      .then((response) => Cookies.set("token", response))
       .catch((error) => {
         console.error("Error:", error);
       });
