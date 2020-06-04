@@ -55,9 +55,16 @@ export default function Login() {
         author_password: state.password,
       }),
     })
-      .then((response) => response.json())
-      .then((response) => Cookies.set("token", response))
-      .then(setAuthenticated(true))
+      .then((response) => {
+        if (response.status === 200) {
+          response
+            .json()
+            .then((response) => Cookies.set("token", response))
+            .then(setAuthenticated(true));
+        } else {
+          console.log("forbidden");
+        }
+      })
       .catch((error) => {
         console.error("Error:", error);
       });
