@@ -16,20 +16,25 @@ import TaggedProducts from "./TaggedProducts/TaggedProducts";
 const App = () => {
   const [shoppingCart, setShoppingCart] = useState([]);
 
-  const updateShoppingCart = (data) => {
-    data = data.split(" ").join("");
-    console.log(
-      "here",
-      shoppingCart.some((entry) => entry.item === data)
-    );
-
-    setShoppingCart([...shoppingCart, data]);
+  const updateShoppingCart = (data, action) => {
+    if (action === "+") setShoppingCart([...shoppingCart, data]);
+    else {
+      setShoppingCart((prev) => {
+        if (prev.length > 1) {
+          const index = prev.indexOf(data);
+          const array = prev.slice();
+          array.splice(index, 1);
+          return array;
+        }
+        return [];
+      });
+    }
   };
 
   return (
     <Router>
       <CssBaseline>
-        <Logonav />
+        <Logonav numItems={shoppingCart.length} />
         <Switch>
           <Route exact path="/">
             <Upperhero />

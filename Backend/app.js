@@ -129,14 +129,14 @@ app.get("/products", (req, res) => {
   query.num
     ? db
         .query(
-          "SELECT product_id, product_description, product_name,product_picture, category FROM product JOIN category ON product_category = category_id LIMIT $1",
+          "SELECT product_id, product_description, product_name,product_picture, product_price, category FROM product JOIN category ON product_category = category_id LIMIT $1",
           [limit]
         )
         .then((data) => res.json(data.rows))
         .catch(console.log)
     : db
         .query(
-          "SELECT product_id, product_description, product_name, product_picture, category FROM product JOIN category ON product_category = category_id"
+          "SELECT product_id, product_description, product_name, product_picture,product_price, category FROM product JOIN category ON product_category = category_id"
         )
         .then((data) => res.json(data.rows))
         .catch(console.log);

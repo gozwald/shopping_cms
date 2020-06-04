@@ -10,7 +10,7 @@ import ProductRating from "./ProductRating";
 import ProductCard from "../Products/ProductCard";
 import Button from "@material-ui/core/Button";
 
-const ProductPage = () => {
+const ProductPage = ({ updateShoppingCart }) => {
   const [product, setProduct] = useState([undefined]);
 
   let { id } = useParams();
@@ -24,6 +24,11 @@ const ProductPage = () => {
     };
     getProductById();
   }, [id]);
+
+  const handleClick = (data) => {
+    updateShoppingCart(data, "+");
+  };
+
   return (
     <>
       <Box p={2}>
@@ -45,7 +50,7 @@ const ProductPage = () => {
                 <Button
                   variant={"contained"}
                   color={"secondary"}
-                  onClick={() => handleClick(product.productName)}
+                  onClick={() => handleClick(product.product_id)}
                 >
                   Buy
                 </Button>
