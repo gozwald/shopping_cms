@@ -49,7 +49,7 @@ app.post("/blog/login", (req, res) => {
     .then((e) => {
       if (e.rows[0].author_password === author_password) {
         jwt.sign(author_username, "secretkey", (err, token) => {
-          res.json(token);
+          res.status(200).json(token);
         });
       } else {
         res.sendStatus(403);

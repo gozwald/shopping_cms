@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { createBrowserHistory } from "history";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -12,8 +11,7 @@ import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import Cookies from "js-cookie";
-
-// const history = createBrowserHistory();
+import { Redirect } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -41,8 +39,9 @@ export default function Login() {
   const [state, setState] = useState({
     username: null,
     password: null,
-    authenticated: false,
   });
+
+  const [authenticated, setAuthenticated] = useState(false);
 
   const submitHandlder = (e) => {
     e.preventDefault();
@@ -56,8 +55,16 @@ export default function Login() {
         author_password: state.password,
       }),
     })
-      .then((response) => response.json())
-      .then((response) => Cookies.set("token", response))
+      .then((response) => {
+        if (response.status === 200) {
+          response
+            .json()
+            .then((response) => Cookies.set("token", response))
+            .then(setAuthenticated(true));
+        } else {
+          console.log("forbidden");
+        }
+      })
       .catch((error) => {
         console.error("Error:", error);
       });
@@ -72,6 +79,7 @@ export default function Login() {
 
   return (
     <Container component="main" maxWidth="xs">
+      {authenticated && <Redirect to="/blog/dashboard" />}
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
