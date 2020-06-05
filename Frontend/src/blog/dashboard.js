@@ -63,7 +63,7 @@ export default function Dashboard() {
   useEffect(() => {
     setTimeout(() => {
       fetchData();
-    }, 100);
+    }, 500);
   }, []);
 
   const fetchData = () => {
@@ -94,6 +94,7 @@ export default function Dashboard() {
       <Grid item xs={12}>
         <TabPanel value={value} index={0}>
           {authorPosts && <Welcome author={authorPosts} />}
+          blabla
         </TabPanel>
         <TabPanel value={value} index={1}>
           Add Post
