@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Cookies from "js-cookie";
 import { Node } from "slate";
+import { Link } from "react-router-dom";
 
 const Wrap = styled.div`
   max-width: 1200px;
@@ -31,54 +32,6 @@ const Block = styled.div`
     color: white;
   }
 `;
-
-const Lovers = () => (
-  <Block>
-    <h1>Lovers</h1>
-    <p>Do you do everything by heart?</p>
-    <p>
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-      est laborum."
-    </p>
-  </Block>
-);
-
-const Thinkers = () => (
-  <Block>
-    <h1>Thinkers</h1>
-    <p>Do you do everything by mind?</p>
-    <p>
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-      est laborum."
-    </p>
-  </Block>
-);
-
-const Tasters = () => (
-  <Block>
-    <h1>Tasters</h1>
-    <p>Are you only able to function with a full belly?</p>
-    <p>
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-      veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-      commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-      velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-      cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id
-      est laborum."
-    </p>
-  </Block>
-);
 
 const Customize = (props) => (
   <Block>
@@ -113,7 +66,15 @@ function Blog() {
   }, []);
 
   const blogList = blogListContent.map((post) => (
-    <Customize title={post[0]} subTitle={post[1]} contentCut={post[2]} />
+    <Link
+      to="/blog/post"
+      style={{
+        color: "inherit",
+        textDecoration: "inherit",
+      }}
+    >
+      <Customize title={post[0]} subTitle={post[1]} contentCut={post[2]} />
+    </Link>
   ));
 
   return (

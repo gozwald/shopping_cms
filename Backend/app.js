@@ -213,4 +213,10 @@ app.get("/blog/getAllPosts", (req, res) => {
   );
 });
 
+app.get("/blog/getPostById", (req, res) => {
+  db.query("SELECT post_content FROM posts WHERE post_id = $1", [
+    12,
+  ]).then((post) => res.json(post.rows[0]));
+});
+
 app.listen(5000, () => console.log("Server is running on port: 5000"));
