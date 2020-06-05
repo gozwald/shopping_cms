@@ -6,6 +6,8 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Cookies from "js-cookie";
+import BlogEditLayout from "./BlogEditLayout";
+import BlogCreateLayout from "./BlogCreateLayout";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -80,17 +82,17 @@ export default function Dashboard() {
         className={classes.tabs}
       >
         <Tab label="My Blog Posts" {...a11yProps(0)} />
-        <Tab label="Edit Profile" {...a11yProps(1)} />
+        <Tab label="Edit Post" {...a11yProps(1)} />
         <Tab label="Add Post" {...a11yProps(2)} />
       </Tabs>
       <TabPanel value={value} index={0}>
-        My Posts
+        Blubb
       </TabPanel>
       <TabPanel value={value} index={1}>
-        My Profile
+        <BlogEditLayout />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Add Post
+        <BlogCreateLayout />
       </TabPanel>
     </div>
   );

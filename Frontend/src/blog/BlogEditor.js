@@ -4,10 +4,10 @@ import { Editable, withReact, useSlate, Slate } from "slate-react";
 import { Editor, Transforms, createEditor } from "slate";
 import { withHistory } from "slate-history";
 import axios from "axios";
-import escapeHtml from "escape-html";
 import { Node, Text } from "slate";
 
 import { Button, Icon, Toolbar } from "./BlogUtil";
+import Cookies from "js-cookie";
 
 const HOTKEYS = {
   "mod+b": "bold",
@@ -20,27 +20,15 @@ const LIST_TYPES = ["numbered-list", "bulleted-list"];
 
 const BlogEditor = () => {
   const [value, setValue] = useState(initialValue);
+  const [author, setAuthor] = useState("");
   const renderElement = useCallback((props) => <Element {...props} />, []);
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
-  const serialize = (node) => {
-    if (Text.isText(node)) {
-      return escapeHtml(node.text);
-    }
-
-    const children = node.children.map((n) => serialize(n)).join("");
-
-    switch (node.type) {
-      case "quote":
-        return `<blockquote><p>${children}</p></blockquote>`;
-      case "paragraph":
-        return `<p>${children}</p>`;
-      case "link":
-        return `<a href="${escapeHtml(node.url)}">${children}</a>`;
-      default:
-        return children;
-    }
+  const serialize = (nodes) => {
+    const storeMeInArray = nodes.map((n) => Node.string(n));
+    return storeMeInArray;
+    // return nodes.map((n) => Node.string(n)).join("\n");
   };
 
   console.log(serialize(value));
@@ -48,26 +36,45 @@ const BlogEditor = () => {
   const fetchBlog = () => {
     fetch("http://localhost:5000/blog/fetchById", {
       method: "GET",
+      headers: { token: Cookies.get("token") },
     })
-      .then((res) => res.json())
-      .then((res) => setValue(res.post_content));
+      .then((response) => response.json())
+      .then((res) => setValue(res.post_content))
+      .catch((error) => console.log(error));
   };
 
   const savePost = () => {
-    axios
-      .post("http://localhost:5000/blog/save", {
-        blogContent: value,
+    const data = { author, value };
+    fetch("http://localhost:5000/blog/save", {
+      method: "PUT",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        token: Cookies.get("token"),
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
       })
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
+      .catch((error) => {
+        console.error("Error:", error);
       });
+  };
+
+  const getAuthor = () => {
+    fetch("http://localhost:5000/blog/getAuthor", {
+      method: "GET",
+      headers: { token: Cookies.get("token") },
+    })
+      .then((response) => response.json())
+      .then((res) => setAuthor(res));
   };
 
   useEffect(() => {
     fetchBlog();
+    getAuthor();
   }, []);
 
   return (

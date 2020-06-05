@@ -17,9 +17,19 @@ import BlogEditLayout from "./blog/BlogEditLayout";
 import CreateBlog from "./blog/CreateBlog";
 import BlogCreateLayout from "./blog/BlogCreateLayout";
 import Blog from "./blog/frontend/Blog";
+import Cookies from "js-cookie";
 
 const App = () => {
   const [shoppingCart, setShoppingCart] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/blog/getall", {
+      method: "GET",
+      headers: { token: Cookies.get("token") },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
 
   const updateShoppingCart = (data, action) => {
     if (action === "+") setShoppingCart([...shoppingCart, data]);

@@ -18,7 +18,7 @@ const BlogCreateLayout = (props) => {
           style={{
             // backgroundColor: "dimgrey",
             minHeight: "60vh",
-            maxWidth: "70vw",
+            width: "60vw",
           }}
         >
           <Container>
