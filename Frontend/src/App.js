@@ -20,6 +20,7 @@ import BlogCreateLayout from "./blog/BlogCreateLayout";
 import Blog from "./blog/frontend/Blog";
 import Cookies from "js-cookie";
 import BlogPostLayout from "./blog/BlogPostLayout";
+import BlogPost from "./blog/BlogPost";
 
 const App = () => {
   const [shoppingCart, setShoppingCart] = useState([]);
@@ -50,17 +51,19 @@ const App = () => {
 
   return (
     <Router>
-      <Box
-        style={{ display: "flex", flexDirection: "column", height: "100vh" }}
-      >
+      <Box>
         <Logonav numItems={shoppingCart.length} />
         <Switch>
-
           <Box
             style={{
               height: "300vh",
             }}
           >
+            <Route
+              exact
+              path="/blog/getPostById/:blogId"
+              component={BlogPostLayout}
+            />
             <Route exact path="/">
               <Upperhero />
               <Main />
@@ -100,7 +103,6 @@ const App = () => {
             />
             <Route exact path="/blog/post" component={BlogPostLayout} />
           </Box>
-
         </Switch>
         <Box
           style={{ height: "70px", backgroundColor: "rgb(55, 180, 0,0.32)" }}
