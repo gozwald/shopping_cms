@@ -28,21 +28,7 @@ const verifyToken = (req, res, next) => {
 
 app.get("/blog/dashboard", verifyToken, (req, res) => {
   db.query(
-    "SELECT author_name, author_username, author_avatar, author_description, post_id, post_date, post_type, post_title, post_content FROM authors JOIN posts ON author_id=post_author_id WHERE author_username = $1",
-    [req.decoded]
-  ).then((e) => res.json(e.rows));
-});
-
-app.get("/blog/dashboard/author", verifyToken, (req, res) => {
-  db.query(
-    "SELECT author_name, author_username, author_avatar, author_description FROM authors WHERE author_username = $1",
-    [req.decoded]
-  ).then((e) => res.json(e.rows));
-});
-
-app.get("/blog/dashboard/posts", verifyToken, (req, res) => {
-  db.query(
-    "SELECT post_id, post_date, post_type, post_title, post_content FROM posts JOIN authors ON author_id=post_author_id WHERE author_username = $1",
+    "SELECT author_name, author_username, author_avatar, author_description, post_id, post_date, post_type, post_title, post_content FROM authors LEFT JOIN posts ON author_id=post_author_id WHERE author_username = $1",
     [req.decoded]
   ).then((e) => res.json(e.rows));
 });
