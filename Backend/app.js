@@ -165,6 +165,32 @@ app.get("/product/:id", (req, res) => {
     .catch((e) => console.log(e));
 });
 
+app.post("/products", (req, res) => {
+  const {
+    product_id,
+    product_name,
+    product_price,
+    product_category,
+    product_description,
+    product_isInShoppingCart,
+    product_picture,
+  } = req.body;
+  db.query(
+    "INSERT into product VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+    [
+      product_id,
+      product_name,
+      product_price,
+      product_category,
+      product_description,
+      product_isInShoppingCart,
+      product_picture,
+    ]
+  )
+    .then((data) => res.json(data.rows))
+    .catch(console.log);
+});
+
 // db.query("SELECT * FROM posts WHERE post_id = $1", [12])
 app.get("/blog/fetchById", verifyToken, (req, res) => {
   // console.log(req.decoded);
@@ -211,6 +237,12 @@ app.get("/blog/getAllPosts", (req, res) => {
   db.query("SELECT post_content FROM posts").then((data) =>
     res.json(data.rows)
   );
+});
+
+app.get("/blog/getPostById", (req, res) => {
+  db.query("SELECT post_content FROM posts WHERE post_id = $1", [
+    12,
+  ]).then((post) => res.json(post.rows[0]));
 });
 
 app.listen(5000, () => console.log("Server is running on port: 5000"));
