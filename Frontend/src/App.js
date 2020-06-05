@@ -58,7 +58,7 @@ const App = () => {
         <Switch>
           <Box
             style={{
-              height: "300vh",
+              height: "1000vh",
             }}
           >
             <Route

@@ -36,8 +36,8 @@ export default function Welcome({ author }) {
             </IconButton>
           }
         >
-          You have succesfully logged in {author[0].author_name}. Nice to have
-          you!
+          You have succesfully logged in {author[0].author_name}. Please find
+          all your posts below. you!
         </Alert>
       </Collapse>
     </div>
