@@ -32,34 +32,28 @@ export default function Main() {
   }, []);
 
   return (
-    <Box minWidth="800px">
-      <Grid
-        container
-        direction="row"
-        style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}
-      >
-        <Container maxWidth="lg">
-          <Grid container item xs={12}>
-            <Grid item xs={3}>
-              <CardContent className={classes.leftDetails}>
-                <Typography noWrap variant="h4">
-                  Choose a flavor
-                </Typography>
-              </CardContent>
-            </Grid>
-            <Grid item xs={9}>
-              {datCatloc &&
-                datCatloc.map((result, index) => (
-                  <Categories
-                    key={index}
-                    title={result.category}
-                    pic={result.picture}
-                  />
-                ))}
-            </Grid>
+    <Grid direction="row" style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}>
+      <Container maxWidth="lg">
+        <Grid container item xs={12}>
+          <Grid item xs={3}>
+            <CardContent className={classes.leftDetails}>
+              <Typography noWrap variant="h4">
+                Choose a flavor
+              </Typography>
+            </CardContent>
           </Grid>
-        </Container>
-      </Grid>
-    </Box>
+          <Grid item xs={9}>
+            {datCatloc &&
+              datCatloc.map((result, index) => (
+                <Categories
+                  key={index}
+                  title={result.category}
+                  pic={result.picture}
+                />
+              ))}
+          </Grid>
+        </Grid>
+      </Container>
+    </Grid>
   );
 }
