@@ -49,49 +49,62 @@ const App = () => {
 
   return (
     <Router>
-      <CssBaseline>
+      <Box
+        style={{ display: "flex", flexDirection: "column", height: "100vh" }}
+      >
         <Logonav numItems={shoppingCart.length} />
         <Switch>
-          <Route exact path="/">
-            <Upperhero />
-            <Main />
-          </Route>
-          <Route
-            exact
-            path="/card"
-            render={(props) => (
-              <Layout
-                {...props}
-                updateShoppingCart={updateShoppingCart}
-                shoppingCart={shoppingCart}
-              />
-            )}
-          />
-          <Route exact path="/blog/dashboard" component={Dashboard} />
-          <Route exact path="/blog/update" component={BlogEditLayout} />
-          <Route exact path="/blog/create" component={BlogCreateLayout} />
-          <Route exact path="/blog/login" component={Login} />
-          <Route exact path="/blog/signup" component={Signup} />
-          <Route exact path="/blog" component={Blog} />
-          <Route exact path="/shop" component={Products} />
-          <Route
-            exact
-            path="/shop/:id"
-            render={(props) => (
-              <ProductPage {...props} updateShoppingCart={updateShoppingCart} />
-            )}
-          />
-          <Route exact path="/products/:category" component={TaggedProducts} />
+          <Box
+            style={{
+              height: "300vh",
+            }}
+          >
+            <Route exact path="/">
+              <Upperhero />
+              <Main />
+            </Route>
+            <Route
+              exact
+              path="/card"
+              render={(props) => (
+                <Layout
+                  {...props}
+                  updateShoppingCart={updateShoppingCart}
+                  shoppingCart={shoppingCart}
+                />
+              )}
+            />
+            <Route exact path="/blog/dashboard" component={Dashboard} />
+            <Route exact path="/blog/update" component={BlogEditLayout} />
+            <Route exact path="/blog/create" component={BlogCreateLayout} />
+            <Route exact path="/blog/login" component={Login} />
+            <Route exact path="/blog/signup" component={Signup} />
+            <Route exact path="/blog" component={Blog} />
+            <Route exact path="/shop" component={Products} />
+            <Route
+              exact
+              path="/shop/:id"
+              render={(props) => (
+                <ProductPage
+                  {...props}
+                  updateShoppingCart={updateShoppingCart}
+                />
+              )}
+            />
+            <Route
+              exact
+              path="/products/:category"
+              component={TaggedProducts}
+            />
+          </Box>
         </Switch>
-        <Grid
-          style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}
-          container
-          xs={12}
+        <Box
+          style={{ height: "70px", backgroundColor: "rgb(55, 180, 0,0.32)" }}
           justify="center"
         >
           <Toolbar style={{ fontSize: "20px", fontFamily: "Roboto" }} />
-        </Grid>
-      </CssBaseline>
+        </Box>
+      </Box>
     </Router>
   );
 };
