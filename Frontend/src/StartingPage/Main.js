@@ -12,21 +12,6 @@ const useStyles = makeStyles(() => ({
   root: {
     display: "flex",
   },
-  details: {
-    display: "flex",
-    flexDirection: "column",
-    width: "100%",
-  },
-  content: {
-    flexDirection: "column",
-    justifyContent: "center",
-    display: "flex",
-    height: "100%",
-  },
-  cover: {
-    width: "100%",
-    height: "8em",
-  },
   leftDetails: {
     display: "flex",
     flexDirection: "column",
@@ -45,8 +30,6 @@ export default function Main() {
       .then((response) => response.json())
       .then((data) => setDatCatloc(data));
   }, []);
-
-  datCatloc && console.log(datCatloc);
 
   return (
     <Box minWidth="800px">

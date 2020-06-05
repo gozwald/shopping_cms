@@ -11,12 +11,17 @@
     "@testing-library/user-event": "^7.1.2",
     "@types/react-router-dom": "^5.1.5",
     "contentful": "^7.14.4",
+    "escape-html": "^1.0.3",
     "history": "^4.10.1",
     "js-cookie": "^2.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
+    "slate": "^0.58.1",
+    "slate-history": "^0.58.1",
+    "slate-html-serializer": "^0.8.13",
+    "slate-react": "^0.58.2",
     "styled-components": "^5.1.1",
     "webfontloader": "1.6.28"
   },
@@ -42,7 +47,9 @@
     ]
   },
   "devDependencies": {
+    "emotion": "^10.0.27",
     "husky": "^4.2.5",
+    "is-hotkey": "^0.1.6",
     "prettier": "2.0.5",
     "pretty-quick": "^2.0.1"
   },

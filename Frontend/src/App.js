@@ -7,15 +7,31 @@ import Layout from "./ShoppingCart/Layout";
 import Signup from "./blog/signup";
 import Login from "./blog/login";
 import Dashboard from "./blog/dashboard";
+import Box from "@material-ui/core/Box";
 import { Toolbar } from "@material-ui/core";
 import Products from "./Products/Products";
 import Logonav from "./StartingPage/logonav";
 import Upperhero from "./StartingPage/upperhero";
 import TaggedProducts from "./TaggedProducts/TaggedProducts";
+import BlogEditor from "./blog/BlogEditor";
+import BlogEditLayout from "./blog/BlogEditLayout";
+import CreateBlog from "./blog/CreateBlog";
+import BlogCreateLayout from "./blog/BlogCreateLayout";
 import Blog from "./blog/frontend/Blog";
+import Cookies from "js-cookie";
+import BlogPostLayout from "./blog/BlogPostLayout";
 
 const App = () => {
   const [shoppingCart, setShoppingCart] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/blog/getall", {
+      method: "GET",
+      headers: { token: Cookies.get("token") },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
 
   const updateShoppingCart = (data, action) => {
     if (action === "+") setShoppingCart([...shoppingCart, data]);
@@ -53,6 +69,8 @@ const App = () => {
             )}
           />
           <Route exact path="/blog/dashboard" component={Dashboard} />
+          <Route exact path="/blog/update" component={BlogEditLayout} />
+          <Route exact path="/blog/create" component={BlogCreateLayout} />
           <Route exact path="/blog/login" component={Login} />
           <Route exact path="/blog/signup" component={Signup} />
           <Route exact path="/blog" component={Blog} />
@@ -65,6 +83,7 @@ const App = () => {
             )}
           />
           <Route exact path="/products/:category" component={TaggedProducts} />
+          <Route exact path="/blog/post" component={BlogPostLayout} />
         </Switch>
         <Grid
           style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}

@@ -22,13 +22,13 @@ const verifyToken = (req, res, next) => {
       }
     });
   } else {
-    res.sendStatus(403);
+    res.sendStatus(418);
   }
 };
 
 app.get("/blog/dashboard", verifyToken, (req, res) => {
   db.query(
-    "SELECT post_id, author_name, author_username, author_avatar, author_description, post_date, post_type, post_title, post_content FROM authors JOIN posts ON author_id=post_author_id WHERE author_username = $1",
+    "SELECT author_name, author_username, author_avatar, author_description, post_id, post_date, post_type, post_title, post_content FROM authors LEFT JOIN posts ON author_id=post_author_id WHERE author_username = $1",
     [req.decoded]
   ).then((e) => res.json(e.rows));
 });
@@ -81,7 +81,7 @@ app.post("/blog/addauthor", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-app.post("/blog/post/", (req, res) => {
+app.post("/blog/post/", verifyToken, (req, res) => {
   const {
     author_username,
     post_date,
@@ -103,7 +103,7 @@ app.post("/blog/post/", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-app.put("/blog/update/", (req, res) => {
+app.put("/blog/update/", verifyToken, (req, res) => {
   const { post_id, post_date, post_type, post_title, post_content } = req.body;
 
   db.query(
@@ -114,7 +114,7 @@ app.put("/blog/update/", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-app.delete("/blog/delete/", (req, res) => {
+app.delete("/blog/delete/", verifyToken, (req, res) => {
   const { post_id } = req.body;
 
   db.query("DELETE FROM posts WHERE post_id = $1 returning *", [post_id])
@@ -189,6 +189,60 @@ app.post("/products", (req, res) => {
   )
     .then((data) => res.json(data.rows))
     .catch(console.log);
+});
+
+// db.query("SELECT * FROM posts WHERE post_id = $1", [12])
+app.get("/blog/fetchById", verifyToken, (req, res) => {
+  // console.log(req.decoded);
+  db.query(
+    "SELECT post_content FROM authors JOIN posts ON author_id = post_author_id WHERE author_username = $1 ",
+    [req.decoded]
+  )
+    .then((blog) => res.json(blog.rows[0]))
+    .catch((e) => console.log(e));
+});
+
+// .then((blog) => res.json(blog.rows[0].content))
+
+app.put("/blog/save", (req, res) => {
+  const { author, value } = req.body;
+
+  // console.log(authorIndex);
+  //res.rows[0].author_id;
+
+  db.query(
+    "UPDATE posts SET post_content = $1 FROM authors WHERE posts.post_author_id = $2",
+    [JSON.stringify(value), author]
+  );
+});
+
+app.post("/blog/createBlog", (req, res) => {
+  const { value, author } = req.body;
+  const blogJson = JSON.stringify(value);
+
+  db.query("INSERT INTO posts (post_content, post_author_id) VALUES ($1, $2)", [
+    blogJson,
+    author,
+  ]).catch((e) => console.log(e));
+});
+
+app.get("/blog/getAuthor", verifyToken, (req, res) => {
+  const author = req.decoded;
+  db.query("SELECT author_id FROM authors WHERE author_username = $1", [
+    author,
+  ]).then((authorId) => res.json(authorId.rows[0].author_id));
+});
+
+app.get("/blog/getAllPosts", (req, res) => {
+  db.query("SELECT post_content FROM posts").then((data) =>
+    res.json(data.rows)
+  );
+});
+
+app.get("/blog/getPostById", (req, res) => {
+  db.query("SELECT post_content FROM posts WHERE post_id = $1", [
+    12,
+  ]).then((post) => res.json(post.rows[0]));
 });
 
 app.listen(5000, () => console.log("Server is running on port: 5000"));

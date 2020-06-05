@@ -14,10 +14,6 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
-// import { createBrowserHistory } from "history";
-// import DialogTitle from "@material-ui/core/DialogTitle";
-
-// const history = createBrowserHistory();
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -71,7 +67,6 @@ export default function Signup() {
       .then((data) => {
         console.log("Success:", data);
         setOpen(true);
-        // history.push("/login");
       })
       .catch((error) => {
         console.error("Error:", error);
@@ -93,7 +88,7 @@ export default function Signup() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Writers portal - Sign up!
         </Typography>
         <form onSubmit={submitHandlder} className={classes.form}>
           <Grid container spacing={2}>
