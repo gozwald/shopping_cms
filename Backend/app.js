@@ -252,4 +252,12 @@ app.get("/blog/getAllWithId", (req, res) => {
   );
 });
 
+app.get("/blog/getbyUserWithID", verifyToken, (req, res) => {
+  console.log(req.decoded);
+  db.query(
+    "SELECT post_content ,post_id FROM posts LEFT JOIN authors ON author_id=post_author_id WHERE author_username = $1",
+    [req.decoded]
+  ).then((post) => res.json(post.rows));
+});
+
 app.listen(5000, () => console.log("Server is running on port: 5000"));

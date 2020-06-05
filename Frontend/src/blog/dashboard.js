@@ -10,6 +10,7 @@ import BlogEditLayout from "./BlogEditLayout";
 import BlogCreateLayout from "./BlogCreateLayout";
 import Welcome from "./welcome";
 import Grid from "@material-ui/core/Grid";
+import PostsByAuthor from "./PostsByAuthor";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -97,6 +98,7 @@ export default function Dashboard() {
       <Grid item xs={12}>
         <TabPanel value={value} index={0}>
           {authorPosts && <Welcome author={authorPosts} />}
+          <PostsByAuthor />
         </TabPanel>
         <TabPanel value={value} index={1}>
           <BlogEditLayout />
