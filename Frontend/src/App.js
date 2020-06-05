@@ -51,7 +51,9 @@ const App = () => {
 
   return (
     <Router>
-      <Box>
+      <Box
+        style={{ display: "flex", flexDirection: "column", height: "100vh" }}
+      >
         <Logonav numItems={shoppingCart.length} />
         <Switch>
           <Box
