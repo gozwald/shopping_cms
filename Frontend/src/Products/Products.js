@@ -39,7 +39,7 @@ const Products = () => {
         productName={item.product_name}
         pid={item.product_id}
         tag={item.category}
-        price={item.product_price}
+        price={item.product_price.toFixed(2)}
       />
     );
   });

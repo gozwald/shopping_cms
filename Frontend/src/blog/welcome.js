@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Welcome({ author }) {
+  console.log(author);
   const classes = useStyles();
   const [open, setOpen] = React.useState(true);
 

@@ -11,7 +11,7 @@ import Badge from "@material-ui/core/Badge";
 
 export default function Logonav({ numItems }) {
   return (
-    <>
+    <Box style={{ height: "230px" }}>
       <Grid container item xs={12} justify="center">
         <Link
           to={"/"}
@@ -86,6 +86,6 @@ export default function Logonav({ numItems }) {
           </Link>
         </Toolbar>
       </Grid>
-    </>
+    </Box>
   );
 }
