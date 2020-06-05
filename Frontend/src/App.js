@@ -19,6 +19,7 @@ import CreateBlog from "./blog/CreateBlog";
 import BlogCreateLayout from "./blog/BlogCreateLayout";
 import Blog from "./blog/frontend/Blog";
 import Cookies from "js-cookie";
+import BlogPostLayout from "./blog/BlogPostLayout";
 
 const App = () => {
   const [shoppingCart, setShoppingCart] = useState([]);
@@ -82,6 +83,7 @@ const App = () => {
             )}
           />
           <Route exact path="/products/:category" component={TaggedProducts} />
+          <Route exact path="/blog/post" component={BlogPostLayout} />
         </Switch>
         <Grid
           style={{ backgroundColor: "rgb(55, 180, 0,0.32)" }}
