@@ -227,10 +227,17 @@ app.get("/blog/getAllPosts", (req, res) => {
   );
 });
 
-app.get("/blog/getPostById", (req, res) => {
+app.get("/fetchBlog/getPostById/:blogId", (req, res) => {
+  console.log("/fetchBlog/getPostById/:blogId");
   db.query("SELECT post_content FROM posts WHERE post_id = $1", [
-    12,
-  ]).then((post) => res.json(post.rows[0]));
+    req.params.blogId,
+  ]).then((post) => res.json(post.rows[0].post_content));
+});
+
+app.get("/blog/getAllWithId", (req, res) => {
+  db.query("SELECT post_content ,post_id FROM posts").then((post) =>
+    res.json(post.rows)
+  );
 });
 
 app.listen(5000, () => console.log("Server is running on port: 5000"));

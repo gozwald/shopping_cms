@@ -1,22 +1,10 @@
 import React, { useCallback, useEffect, useMemo, useState } from "react";
-import isHotkey from "is-hotkey";
 import { Editable, withReact, useSlate, Slate } from "slate-react";
 import { Editor, Transforms, createEditor } from "slate";
 import { withHistory } from "slate-history";
-import axios from "axios";
-import { Node, Text } from "slate";
-
-import { Button, Icon, Toolbar } from "./BlogUtil";
 import Cookies from "js-cookie";
 
-const HOTKEYS = {
-  "mod+b": "bold",
-  "mod+i": "italic",
-  "mod+u": "underline",
-  "mod+`": "code",
-};
-
-const LIST_TYPES = ["numbered-list", "bulleted-list"];
+import { useParams } from "react-router";
 
 const BlogPost = (props) => {
   const [value, setValue] = useState(initialValue);
@@ -25,31 +13,19 @@ const BlogPost = (props) => {
   const renderLeaf = useCallback((props) => <Leaf {...props} />, []);
   const editor = useMemo(() => withHistory(withReact(createEditor())), []);
 
-  const fetchBlog = () => {
-    fetch("http://localhost:5000/blog/fetchById", {
-      method: "GET",
-      headers: { token: Cookies.get("token") },
-    })
-      .then((response) => response.json())
-      .then((res) => setValue(res.post_content))
-      .catch((error) => console.log(error));
-  };
-
-  const getAuthor = () => {
-    fetch("http://localhost:5000/blog/getPostById", {
-      method: "GET",
-      headers: {
-        postId: 12,
-        token: Cookies.get("token"),
-      },
-    })
-      .then((response) => response.json())
-      .then((res) => setAuthor(res));
-  };
-
   useEffect(() => {
+    const fetchBlog = () => {
+      fetch(`http://localhost:5000/fetchBlog/getPostById/${props.blogId}`, {
+        method: "GET",
+        headers: {
+          token: Cookies.get("token"),
+        },
+      })
+        .then((response) => response.json())
+        .then((res) => setValue(res))
+        .catch((error) => console.log(error));
+    };
     fetchBlog();
-    getAuthor();
   }, []);
 
   return (
@@ -106,12 +82,10 @@ const Leaf = ({ attributes, children, leaf }) => {
 
   return <span {...attributes}>{children}</span>;
 };
-
 const initialValue = [
   {
     type: "paragraph",
     children: [{ text: "Loading..." }],
   },
 ];
-
 export default BlogPost;

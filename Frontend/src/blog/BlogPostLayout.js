@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useEffect, useMemo, useState } from "react";
 import Grid from "@material-ui/core/Grid";
 import BlogEditor from "./BlogEditor";
 import Box from "@material-ui/core/Box";
@@ -6,8 +6,15 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import BlogPost from "./BlogPost";
 import Paper from "@material-ui/core/Paper";
+import Cookies from "js-cookie";
+import { useParams } from "react-router";
+import { withHistory } from "slate-history";
+import { withReact } from "slate-react";
+import { createEditor } from "slate";
 
 const BlogPostLayout = (props) => {
+  const { blogId } = useParams();
+
   return (
     <Grid container xs={12} alignContent="space-between">
       <Grid item xs={2} />
@@ -26,7 +33,7 @@ const BlogPostLayout = (props) => {
           >
             <Container>
               <Typography variant="body1">
-                <BlogPost blogPostId={props.blogPostId} />
+                <BlogPost blogId={blogId} />
               </Typography>
             </Container>
           </Box>

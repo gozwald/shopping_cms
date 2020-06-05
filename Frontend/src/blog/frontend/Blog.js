@@ -47,13 +47,13 @@ function Blog() {
   const serialize = (nodes) => {
     const storeMeInArray = nodes.map((n) => Node.string(n));
     return storeMeInArray;
-    // return nodes.map((n) => Node.string(n)).join("\n");
   };
 
   const blogListContent = blogs.map((blog) => serialize(blog.post_content));
+  console.log(blogListContent.length);
 
   const getAllBlogs = () => {
-    fetch("http://localhost:5000/blog/getAllPosts", {
+    fetch("http://localhost:5000/blog/getAllWithId", {
       method: "GET",
       headers: { token: Cookies.get("token") },
     })
@@ -65,9 +65,21 @@ function Blog() {
     getAllBlogs();
   }, []);
 
-  const blogList = blogListContent.map((post) => (
+  let merged = [];
+
+  for (let i = 0; i < blogs.length; i++) {
+    merged.push({
+      ...blogs[i],
+      ...blogListContent[i],
+    });
+  }
+
+  console.log("merges");
+  console.log(merged);
+
+  const blogList = merged.map((post) => (
     <Link
-      to="/blog/post"
+      to={`/blog/getPostById/${post.post_id}`}
       style={{
         color: "inherit",
         textDecoration: "inherit",
@@ -76,6 +88,7 @@ function Blog() {
       <Customize title={post[0]} subTitle={post[1]} contentCut={post[2]} />
     </Link>
   ));
+  console.log(blogListContent);
 
   return (
     <Wrap>
