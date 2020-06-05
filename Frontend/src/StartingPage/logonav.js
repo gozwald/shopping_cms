@@ -33,7 +33,17 @@ export default function Logonav({ numItems }) {
       >
         <Toolbar style={{ fontSize: "20px", fontFamily: "Roboto" }}>
           <Container>
-            <Button style={{ fontSize: "1rem", padding: "20px" }}>About</Button>
+            <Link
+              to="/blog/login"
+              style={{
+                color: "inherit",
+                textDecoration: "inherit",
+              }}
+            >
+              <Button style={{ fontSize: "1rem", padding: "20px" }}>
+                Writers Portal
+              </Button>
+            </Link>
             <Link
               to="/blog"
               style={{

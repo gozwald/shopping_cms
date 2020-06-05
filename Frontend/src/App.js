@@ -7,6 +7,7 @@ import Layout from "./ShoppingCart/Layout";
 import Signup from "./blog/signup";
 import Login from "./blog/login";
 import Dashboard from "./blog/dashboard";
+import Box from "@material-ui/core/Box";
 import { Toolbar } from "@material-ui/core";
 import Products from "./Products/Products";
 import Logonav from "./StartingPage/logonav";
