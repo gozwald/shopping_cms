@@ -13,10 +13,24 @@ import Products from "./Products/Products";
 import Logonav from "./StartingPage/logonav";
 import Upperhero from "./StartingPage/upperhero";
 import TaggedProducts from "./TaggedProducts/TaggedProducts";
+import BlogEditor from "./blog/BlogEditor";
+import BlogEditLayout from "./blog/BlogEditLayout";
+import CreateBlog from "./blog/CreateBlog";
+import BlogCreateLayout from "./blog/BlogCreateLayout";
 import Blog from "./blog/frontend/Blog";
+import Cookies from "js-cookie";
 
 const App = () => {
   const [shoppingCart, setShoppingCart] = useState([]);
+
+  useEffect(() => {
+    fetch("http://localhost:5000/blog/getall", {
+      method: "GET",
+      headers: { token: Cookies.get("token") },
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }, []);
 
   const updateShoppingCart = (data, action) => {
     if (action === "+") setShoppingCart([...shoppingCart, data]);
@@ -54,6 +68,8 @@ const App = () => {
             )}
           />
           <Route exact path="/blog/dashboard" component={Dashboard} />
+          <Route exact path="/blog/update" component={BlogEditLayout} />
+          <Route exact path="/blog/create" component={BlogCreateLayout} />
           <Route exact path="/blog/login" component={Login} />
           <Route exact path="/blog/signup" component={Signup} />
           <Route exact path="/blog" component={Blog} />

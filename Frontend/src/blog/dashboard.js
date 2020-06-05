@@ -6,6 +6,8 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Cookies from "js-cookie";
+import BlogEditLayout from "./BlogEditLayout";
+import BlogCreateLayout from "./BlogCreateLayout";
 import Welcome from "./welcome";
 import Grid from "@material-ui/core/Grid";
 
@@ -89,15 +91,18 @@ export default function Dashboard() {
         className={classes.tabs}
       >
         <Tab label="My Blog Posts" {...a11yProps(0)} />
-        <Tab label="Add Post" {...a11yProps(1)} />
+        <Tab label="Edit Post" {...a11yProps(1)} />
+        <Tab label="Add Post" {...a11yProps(2)} />
       </Tabs>
       <Grid item xs={12}>
         <TabPanel value={value} index={0}>
           {authorPosts && <Welcome author={authorPosts} />}
-          blabla
         </TabPanel>
         <TabPanel value={value} index={1}>
-          Add Post
+          <BlogEditLayout />
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          <BlogCreateLayout />
         </TabPanel>
       </Grid>
     </div>
