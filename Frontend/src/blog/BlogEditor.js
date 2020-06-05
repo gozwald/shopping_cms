@@ -31,7 +31,7 @@ const BlogEditor = () => {
     // return nodes.map((n) => Node.string(n)).join("\n");
   };
 
-  console.log(serialize(value));
+  // console.log(serialize(value));
 
   const fetchBlog = () => {
     fetch("http://localhost:5000/blog/fetchById", {

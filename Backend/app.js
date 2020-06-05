@@ -221,7 +221,7 @@ app.get("/blog/getAuthor", verifyToken, (req, res) => {
   ]).then((authorId) => res.json(authorId.rows[0].author_id));
 });
 
-app.get("/blubb/getPosts", (req, res) => {
+app.get("/blog/getAllPosts", (req, res) => {
   db.query("SELECT post_content FROM posts").then((data) =>
     res.json(data.rows)
   );
