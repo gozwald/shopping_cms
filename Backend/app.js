@@ -165,4 +165,30 @@ app.get("/product/:id", (req, res) => {
     .catch((e) => console.log(e));
 });
 
+app.post("/products", (req, res) => {
+  const {
+    product_id,
+    product_name,
+    product_price,
+    product_category,
+    product_description,
+    product_isInShoppingCart,
+    product_picture,
+  } = req.body;
+  db.query(
+    "INSERT into product VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *",
+    [
+      product_id,
+      product_name,
+      product_price,
+      product_category,
+      product_description,
+      product_isInShoppingCart,
+      product_picture,
+    ]
+  )
+    .then((data) => res.json(data.rows))
+    .catch(console.log);
+});
+
 app.listen(5000, () => console.log("Server is running on port: 5000"));
