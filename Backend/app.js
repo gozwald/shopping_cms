@@ -22,7 +22,7 @@ const verifyToken = (req, res, next) => {
       }
     });
   } else {
-    res.sendStatus(403);
+    res.sendStatus(418);
   }
 };
 
@@ -34,6 +34,7 @@ app.get("/blog/dashboard", verifyToken, (req, res) => {
 });
 
 app.get("/blog/getall", (req, res) => {
+  console.log(req.decoded);
   db.query(
     "SELECT post_id, author_name, author_avatar, author_description, post_date, post_type, post_title, post_content FROM authors JOIN posts ON author_id=post_author_id"
   )
@@ -81,7 +82,7 @@ app.post("/blog/addauthor", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-app.post("/blog/post/", (req, res) => {
+app.post("/blog/post/", verifyToken, (req, res) => {
   const {
     author_username,
     post_date,
@@ -103,7 +104,7 @@ app.post("/blog/post/", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-app.put("/blog/update/", (req, res) => {
+app.put("/blog/update/", verifyToken, (req, res) => {
   const { post_id, post_date, post_type, post_title, post_content } = req.body;
 
   db.query(
@@ -114,7 +115,7 @@ app.put("/blog/update/", (req, res) => {
     .catch((error) => console.log(error));
 });
 
-app.delete("/blog/delete/", (req, res) => {
+app.delete("/blog/delete/", verifyToken, (req, res) => {
   const { post_id } = req.body;
 
   db.query("DELETE FROM posts WHERE post_id = $1 returning *", [post_id])

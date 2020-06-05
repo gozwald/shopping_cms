@@ -86,7 +86,7 @@ export default function Login() {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign In
+          Writers portal - log-in page
         </Typography>
         <form onSubmit={submitHandlder} className={classes.form}>
           <Grid container spacing={2}>
