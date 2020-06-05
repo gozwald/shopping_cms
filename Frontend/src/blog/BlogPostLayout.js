@@ -12,24 +12,25 @@ const BlogPostLayout = (props) => {
     <Grid container xs={12} alignContent="space-between">
       <Grid item xs={2} />
       <Grid item xs={8}>
-        <Box
-          m={3}
-          p={3}
-          margin={1}
-          style={{
-            // backgroundColor: "dimgrey",
-            minHeight: "60vh",
-            width: "60vw",
-          }}
-        >
-          <Paper elevation={1}>
+        <Paper elevation={1}>
+          <Box
+            m={3}
+            mt={3}
+            p={3}
+            margin={1}
+            style={{
+              // backgroundColor: "dimgrey",
+              minHeight: "60vh",
+              width: "60vw",
+            }}
+          >
             <Container>
               <Typography variant="body1">
                 <BlogPost blogPostId={props.blogPostId} />
               </Typography>
             </Container>
-          </Paper>
-        </Box>
+          </Box>
+        </Paper>
       </Grid>
       <Grid item xs={2} />
     </Grid>
