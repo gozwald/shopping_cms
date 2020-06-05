@@ -77,22 +77,6 @@ export default function Dashboard() {
       .then((e) => setAuthorposts(e));
   };
 
-  // const fetchData = () => {
-  //   fetch("http://localhost:5000/blog/dashboard/author", {
-  //     method: "GET",
-  //     headers: { token: Cookies.get("token") },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((e) => setAuthordetails(e))
-  //     .then(fetch("http://localhost:5000/blog/dashboard/posts", {
-  //       method: "GET",
-  //       headers: { token: Cookies.get("token") },
-  //     })
-  //       .then((response) => response.json())
-  //       .then((e) => setAuthorposts(e)))
-  //       .catch((e) => console.log(e))
-  // };
-
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
